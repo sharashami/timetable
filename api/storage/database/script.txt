@@ -1,0 +1,245 @@
+CREATE DATABASE acad;
+use acad;
+
+CREATE TABLE `tbl_usuarios` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `data_nascimento` DATE NULL,
+  `sexo` TINYINT NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_professores` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_usuario` INT NOT NULL,
+  `disciplinas` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_professor_usuario_idx` (`id_usuario` ASC),
+  CONSTRAINT `fk_professor_usuario`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `tbl_usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_usuarios_auth` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `usuario` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  `perfil` ENUM('secretaria', 'professor', 'aluno') NOT NULL,
+  `status` TINYINT(1) NOT NULL DEFAULT 1,
+  `token` VARCHAR(255) NULL,
+  `id_usuario` INT NOT NULL,
+  UNIQUE INDEX `token_UNIQUE` (`token` ASC),
+  PRIMARY KEY (`id`),
+  INDEX `fk_usuario_auth_idx` (`id_usuario` ASC),
+  CONSTRAINT `fk_usuario_auth`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `tbl_usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_series` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_turmas` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `serie` VARCHAR(45) NOT NULL,
+  `turma` VARCHAR(45) NOT NULL,
+  `turno` ENUM('manhã', 'tarde', 'noite') NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_turma` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_ano` INT NOT NULL,
+  `id_turma` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_turma_ano_idx` (`id_ano` ASC),
+  INDEX `fk_turma_turmas_idx` (`id_turma` ASC),
+  CONSTRAINT `fk_turma_ano`
+    FOREIGN KEY (`id_ano`)
+    REFERENCES `tbl_ano` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_turma_turmas`
+    FOREIGN KEY (`id_turma`)
+    REFERENCES `tbl_turmas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_nomenclatura` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_ano` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(4) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_alunos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_usuario` INT NOT NULL,
+  `inep` VARCHAR(45), 
+  `id_ano` INT NULL,
+  `id_turma` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_turma_aluno_idx` (`id_turma` ASC),
+  INDEX `fk_ano_aluno_idx` (`id_ano` ASC),
+  INDEX `fk_usuario_aluno_idx` (`id_usuario` ASC),
+  CONSTRAINT `fk_ano_aluno`
+    FOREIGN KEY (`id_ano`)
+    REFERENCES `tbl_ano` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_turma_aluno`
+    FOREIGN KEY (`id_turma`)
+    REFERENCES `tbl_turmas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuario_aluno`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `tbl_usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `tbl_disciplinas` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+  
+CREATE TABLE `tbl_turma_disciplina_professor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_turma` INT NOT NULL,
+  `id_disciplina` INT NOT NULL,
+  `id_professor` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_turma_disciplina_professor_professor_idx` (`id_professor` ASC),
+  INDEX `fk_turma_disciplina_professor_disciplina_idx` (`id_disciplina` ASC),
+  INDEX `fk_turma_disciplina_professor_turma_idx` (`id_turma` ASC),
+  CONSTRAINT `fk_turma_disciplina_professor`
+    FOREIGN KEY (`id_professor`)
+    REFERENCES `tbl_professores` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_turma_disciplina`
+    FOREIGN KEY (`id_disciplina`)
+    REFERENCES `tbl_disciplinas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_turma`
+    FOREIGN KEY (`id_turma`)
+    REFERENCES `tbl_turma` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `tbl_turma_aluno` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_turma` INT NOT NULL,
+  `id_aluno` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_turma_aluno_turmas_idx` (`id_turma` ASC),
+  INDEX `fk_turma_aluno_idx` (`id_aluno` ASC),
+  CONSTRAINT `fk_turma_aluno_turmas`
+    FOREIGN KEY (`id_turma`)
+    REFERENCES `tbl_turmas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_turma_aluno`
+    FOREIGN KEY (`id_aluno`)
+    REFERENCES `tbl_alunos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `escolabd_rabi`.`tbl_historicos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `b1n1` DECIMAL(2,1) UNSIGNED ,
+  `b1n2` DECIMAL(2,1) UNSIGNED ,
+  `b1n3` DECIMAL(2,1) UNSIGNED ,
+  `b1n4` DECIMAL(2,1) UNSIGNED ,
+  `b2n1` DECIMAL(2,1) UNSIGNED ,
+  `b2n2` DECIMAL(2,1) UNSIGNED ,
+  `b2n3` DECIMAL(2,1) UNSIGNED ,
+  `b2n4` DECIMAL(2,1) UNSIGNED ,
+  `b3n1` DECIMAL(2,1) UNSIGNED ,
+  `b3n2` DECIMAL(2,1) UNSIGNED ,
+  `b3n3` DECIMAL(2,1) UNSIGNED ,
+  `b3n4` DECIMAL(2,1) UNSIGNED ,
+  `b4n1` DECIMAL(2,1) UNSIGNED ,
+  `b4n2` DECIMAL(2,1) UNSIGNED ,
+  `b4n3` DECIMAL(2,1) UNSIGNED ,
+  `b4n4` DECIMAL(2,1) UNSIGNED ,
+  PRIMARY KEY (`id`)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE `escolabd_rabi`.`tbl_turma_aluno_historico` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_turma_aluno` INT NOT NULL,
+  `id_historico` INT NOT NULL,
+  `id_disciplina` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_tah_turma_aluno_idx` (`id_turma_aluno` ASC),
+  INDEX `fk_tah_historico_idx` (`id_historico` ASC),
+  INDEX `fk_tah_disciplina_idx` (`id_disciplina` ASC),
+  CONSTRAINT `fk_tah_turma_aluno`
+    FOREIGN KEY (`id_turma_aluno`)
+    REFERENCES `escolabd_rabi`.`tbl_turma_aluno` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tah_historico`
+    FOREIGN KEY (`id_historico`)
+    REFERENCES `escolabd_rabi`.`tbl_historicos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tah_disciplina`
+    FOREIGN KEY (`id_disciplina`)
+    REFERENCES `escolabd_rabi`.`tbl_disciplinas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO `tbl_usuarios` (`nome`, `email`) VALUES ('Sou secretária', 'teste@teste.com');
+INSERT INTO `tbl_usuarios` (`nome`, `email`) VALUES ('O Professor', 'teste@teste.com');
+INSERT INTO `tbl_usuarios` (`nome`, `email`) VALUES ('O aluno', 'teste@teste.com');
+
+INSERT INTO `tbl_usuarios_auth` (`usuario`, `senha`, `perfil`, `status`, `id_usuario`) VALUES ('aluno', 'aluno', 'aluno', '1', '3');
+INSERT INTO `tbl_usuarios_auth` (`usuario`, `senha`, `perfil`, `status`, `id_usuario`) VALUES ('secretaria', 'secretaria', 'secretaria', '1', '1');
+INSERT INTO `tbl_usuarios_auth` (`usuario`, `senha`, `perfil`, `status`, `id_usuario`) VALUES ('professor', 'professor', 'professor', '1', '2');
+
+INSERT INTO `tbl_ano` (`nome`) VALUES ('2017');
+INSERT INTO `tbl_ano` (`nome`) VALUES ('2018');
+
+INSERT INTO `tbl_turmas` (`serie`, `turma`, `turno`) VALUES ('5', 'A', 'manhã');
+
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('artes');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('português');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('inglês');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('matemática');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('ciências naturais');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('história');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('geografia');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('cidadania');
+INSERT INTO `tbl_disciplinas` (`nome`) VALUES ('educação física');

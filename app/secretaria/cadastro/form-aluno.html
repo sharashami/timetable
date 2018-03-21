@@ -1,0 +1,118 @@
+<section id="cadaluno">
+    <form name="$ctrl.faluno" data-ng-submit="$ctrl.saveAluno()" novalidate>
+
+        <blockquote class="blockquote bq-primary z-depth-1">
+
+            <div class="bq-title bt">Dados Pessoais</div>
+
+            <div class="row">
+                <div class="col-4">
+                    <div class="md-form ">
+                        <input type="text" id="inep" name="inep" class="form-control">
+                        <label for="inep">INEP</label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="md-form ">
+                        <input data-ng-model="$ctrl.data.data_nascimento" type="date" id="dn" name="dn" class="form-control" data-ng-class="{disabled : $ctrl.acao == 'see'}" data-ng-disabled="$ctrl.acao == 'see'">
+                        <label for="dn" class="active">Nascimento</label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="custom-control custom-radio pointer" data-ng-hide="$ctrl.acao == 'see' && $ctrl.data.sexo != 0" data-ng-class="{disabled: $ctrl.acao == 'see'}"> 
+                        <input data-ng-model="$ctrl.data.sexo" value="0" type="radio" class="custom-control-input" data-ng-disabled="$ctrl.acao == 'see'">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Masculino</span>
+                    </label>
+                    <label class="custom-control custom-radio pointer" data-ng-hide="$ctrl.acao == 'see' && $ctrl.data.sexo != 1" data-ng-class="{disabled: $ctrl.acao == 'see'}">
+                        <input data-ng-model="$ctrl.data.sexo" value="1" type="radio" class="custom-control-input" data-ng-disabled="$ctrl.acao == 'see'">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Feminino</span>
+                    </label>
+                </div>
+            </div>
+            <div class="md-form">
+                <input data-ng-model="$ctrl.data.nome" type="text" id="nome" name="nome" class="form-control" data-ng-class="{disabled : $ctrl.acao == 'see'}" data-ng-disabled="$ctrl.acao == 'see'">
+                <label for="nome" data-ng-class="{active : $ctrl.data.nome}">Nome</label>
+            </div>
+            <div class="md-form">
+                <input data-ng-model="$ctrl.data.email" type="email" id="email" name="email" class="form-control" data-ng-class="{disabled : $ctrl.acao == 'see'}" data-ng-disabled="$ctrl.acao == 'see'">
+                <label for="email" data-ng-class="{active : $ctrl.data.email}">Email</label>
+            </div>
+        </blockquote>
+
+        <blockquote class="blockquote bq-primary z-depth-1">
+
+            <div class="bq-title bt">Dados Acadêmicos</div>
+
+            <div class="row">
+                <div class="col" data-ng-hide="$ctrl.acao == 'see'">
+                    <label class="custom-control custom-checkbox form-inline pointer">
+                        <input type="checkbox" class="custom-control-input" data-ng-model="SemTurma">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Sem Turma</span>
+                    </label>
+                </div>
+
+                <div class="form-group col">
+                    <label for="ano">Ano</label>
+                    <select id="ano" class="form-control" data-ng-model="$ctrl.data.ano" data-ng-disabled="SemTurma || $ctrl.acao == 'see'" data-ng-class="{disabled : $ctrl.acao == 'see'}">
+                        <option value="" data-ng-selected="SemTurma"></option>
+                        <option data-ng-repeat="a in $ctrl.anos track by $index" value="{{a.id}}">{{a.nome}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col">
+                    <label for="turma">Turma</label>
+                    <select id="turma" class="form-control" data-ng-model="$ctrl.data.turma" data-ng-disabled="SemTurma || $ctrl.acao == 'see'" data-ng-class="{disabled : $ctrl.acao == 'see'}">
+                        <option value="" data-ng-selected="SemTurma"></option>
+                        <option data-ng-repeat="t in $ctrl.turmas track by $index" value="{{t.id}}">{{t.serie}}ª série | {{t.turma}} | {{t.turno | uppercase}}</option>
+                    </select>
+                </div>
+            </div>
+        </blockquote>
+
+        <blockquote data-ng-if="$ctrl.acao == 'Editar' || !$ctrl.acao" class="blockquote bq-primary z-depth-1">
+
+            <div class="bq-title bt">Acesso</div>
+            <!-- USUARIO -->
+            <div class="md-form">
+                <input id="usuario" name="usuario" type="text" minlength="6" data-ng-change="$ctrl.validPass($ctrl.faluno.usuario.$invalid)" data-ng-model="$ctrl.data.usuario" class="form-control">
+                <label for="usuario">Usuário</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.faluno.usuario.$touched" data-ng-messages="$ctrl.faluno.usuario.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+            </div>
+            <!-- SENHA -->
+            <div class="md-form">
+                <input data-ng-disabled="!$ctrl.data.usuario" id="senha" name="senha" type="password" minlength="6" data-ng-required="$ctrl.data.usuario.length > 0" data-ng-model="$ctrl.data.senha" class="form-control">
+                <label for="senha">Senha</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.faluno.senha.$touched" data-ng-messages="$ctrl.faluno.senha.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+            </div>
+            <!-- CONFIRMA SENHA -->
+            <div class="md-form">
+                <input data-ng-disabled="!$ctrl.data.usuario" id="conf_senha" name="conf_senha" type="password" minlength="6" data-ng-required="$ctrl.data.usuario.length > 0" data-ng-model="$ctrl.data.confsenha" class="form-control">
+                <label for="conf_senha">Confirmação de Senha</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.faluno.conf_senha.$touched" data-ng-messages="$ctrl.faluno.conf_senha.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+                <br>
+                <small class="font-small d-flex justify-content-center alert alert-danger" role="alert" data-ng-show="$ctrl.checkPass()">
+                    <strong>Senhas não conferem!</strong>
+                </small>
+            </div>
+
+        </blockquote>
+
+        <button data-ng-disabled="$ctrl.faluno.$invalid || $ctrl.checkPass()" data-ng-if="!$ctrl.acao" type="submit" class="btn btn-primary float-right">Salvar <i class="fa fa-paper-plane-o ml-1"></i></button>
+        <button data-ng-if="!$ctrl.acao" type="reset" class="btn btn-default float-right">Resetar <i class="fa fa-refresh ml-1"></i></button>
+    </form>
+</section>

@@ -1,0 +1,39 @@
+<form data-ng-submit="$ctrl.saveTurma()">
+    <div class="card">
+        <div class="row">
+            <div class="dropdown mt-3 mb-3 ml-3 col-auto">
+                <button type="button" class="btn btn-outline-default waves-effect dropdown-toggle my-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{$ctrl.selectedYear.nome}}
+                </button>
+                <div class="dropdown-menu dropdown-primary">
+                    <a class="dropdown-item" data-ng-repeat="ano in $ctrl.anos" data-ng-if="$ctrl.selectedYear.nome != ano.nome" data-ng-click="$ctrl.setAno(ano)">{{ano.nome}}</a>
+                </div>
+            </div>
+            <div class="col-10 text-right text-secondary">
+                <h3 class="my-4">Ano Letivo: <strong>{{$ctrl.selectedYear.nome}}</strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4" data-ng-repeat="turno in $ctrl.turnos track by $index">
+
+            <blockquote class="blockquote bq-primary z-depth-1">
+
+                <div class="bq-title bt">{{turno | uppercase}}</div>
+
+                <div data-ng-repeat="t in $ctrl.turmas track by $index" class="custom-checkbox">
+                    <label class="custom-control pointer" data-ng-if="t.turno == turno">
+                    <input data-ng-model='t.check' type="checkbox" class="custom-control-input">
+                    <span class="custom-control-indicator my-1"></span>
+                    <span class="custom-control-description"> {{t.serie}}ª Série | Turma {{t.turma}}</span>
+                </label>
+                </div>
+
+            </blockquote>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary float-right">Salvar <i class="fa fa-paper-plane-o ml-1"></i></button>
+    <button type="button" class="btn btn-default float-right" data-ng-click="$ctrl.reset()">Resetar <i class="fa fa-refresh ml-1"></i></button>
+</form>

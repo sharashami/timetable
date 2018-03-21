@@ -1,0 +1,107 @@
+<section id="">
+    <form name="$ctrl.fprof" data-ng-submit="$ctrl.saveProf()" novalidate>
+
+        <blockquote class="blockquote bq-primary z-depth-1">
+
+            <div class="bq-title bt">Dados Pessoais</div>
+
+
+            <div class="text-right">
+                <label class="custom-control custom-radio pointer" data-ng-hide="$ctrl.acao == 'see' && $ctrl.data.sexo != 0" data-ng-class="{disabled: $ctrl.acao == 'see'}"> 
+                    <input data-ng-model="$ctrl.data.sexo" value="0" type="radio" class="custom-control-input" data-ng-disabled="$ctrl.acao == 'see'">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Masculino</span>
+                </label>
+                <label class="custom-control custom-radio pointer" data-ng-hide="$ctrl.acao == 'see' && $ctrl.data.sexo != 1" data-ng-class="{disabled: $ctrl.acao == 'see'}">
+                    <input data-ng-model="$ctrl.data.sexo" value="1" type="radio" class="custom-control-input" data-ng-disabled="$ctrl.acao == 'see'">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Feminino</span>
+                </label>
+            </div>
+            <div class="md-form">
+                <input type="text" id="nome" name="nome" class="form-control" data-ng-model="$ctrl.data.nome" data-ng-required="true" data-ng-class="{disabled : $ctrl.acao == 'see'}" data-ng-disabled="$ctrl.acao == 'see'" />
+                <label for="nome" data-ng-class="{active : $ctrl.data.nome}">Nome</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.fprof.nome.$touched" data-ng-messages="$ctrl.fprof.nome.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+            </div>
+
+            <div class="md-form">
+                <input type="email" id="email" name="email" class="form-control" data-ng-model="$ctrl.data.email" data-ng-required="true" data-ng-class="{disabled : $ctrl.acao == 'see'}" data-ng-disabled="$ctrl.acao == 'see'" />
+                <label for="email" data-ng-class="{active : $ctrl.data.email}">Email</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.fprof.email.$touched" data-ng-messages="$ctrl.fprof.email.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+            </div>
+
+        </blockquote>
+
+        <blockquote class="blockquote bq-primary z-depth-1">
+
+            <div class="bq-title bt">Dados Funcionais</div>
+
+            <h6 class="text-muted">Você leciona:</h6>
+
+            <label data-ng-repeat="d in $ctrl.disciplinas track by $index" data-ng-if="$ctrl.acao == 'see' && $ctrl.disciplinas[$index].check" class="custom-control custom-checkbox form-inline pointer my-1">
+                <input data-ng-model='$ctrl.disciplinas[$index].check' type="checkbox" class="custom-control-input disabled" data-ng-disabled="$ctrl.acao == 'see'" data-ng-class="{disabled: $ctrl.acao == 'see'}">
+                <span class="custom-control-indicator disabled"></span>
+                <span class="custom-control-description disabled"> {{d.nome | capitalize}}</span>
+            </label>
+
+            <label data-ng-repeat="d in $ctrl.disciplinas track by $index" data-ng-if="$ctrl.acao != 'see'" class="custom-control custom-checkbox form-inline pointer my-1">                
+                <input data-ng-model="$ctrl.disciplinas[$index].check" type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description"> {{d.nome | capitalize}}</span>
+            </label>
+
+        </blockquote>
+
+        <blockquote data-ng-if="$ctrl.acao == 'Editar' || !$ctrl.acao" class="blockquote bq-primary z-depth-1">
+
+            <div class="bq-title bt">Acesso</div>
+            <!-- USUARIO -->
+            <div class="md-form">
+                <input id="usuario" name="usuario" type="text" minlength="6" data-ng-change="$ctrl.validPass($ctrl.fprof.usuario.$invalid)" data-ng-model="$ctrl.data.usuario" class="form-control">
+                <label for="usuario">Usuário</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.fprof.usuario.$touched" data-ng-messages="$ctrl.fprof.usuario.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+            </div>
+            <!-- SENHA -->
+            <div class="md-form">
+                <input data-ng-disabled="!$ctrl.data.usuario" id="senha" name="senha" type="password" minlength="6" data-ng-required="$ctrl.data.usuario.length > 0" data-ng-model="$ctrl.data.senha" class="form-control">
+                <label for="senha">Senha</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.fprof.senha.$touched" data-ng-messages="$ctrl.fprof.senha.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+            </div>
+            <!-- CONFIRMA SENHA -->
+            <div class="md-form">
+                <input data-ng-disabled="!$ctrl.data.usuario" id="conf_senha" name="conf_senha" type="password" minlength="6" data-ng-required="$ctrl.data.usuario.length > 0" data-ng-model="$ctrl.data.confsenha" class="form-control">
+                <label for="conf_senha">Confirmação de Senha</label>
+                <small class="font-small d-flex justify-content-start">
+                    <div data-ng-show="$ctrl.fprof.conf_senha.$touched" data-ng-messages="$ctrl.fprof.conf_senha.$error" data-ng-messages-multiple role="alert">
+                        <div data-ng-messages-include="/app/layout/error.html"></div>
+                    </div>
+                </small>
+                <br>
+                <small class="font-small d-flex justify-content-center alert alert-danger" role="alert" data-ng-show="$ctrl.checkPass()">
+                    <strong>Senhas não conferem!</strong>
+                </small>
+            </div>
+
+        </blockquote>
+
+        <button data-ng-disabled="$ctrl.fprof.$invalid || $ctrl.checkPass()" data-ng-if="!$ctrl.acao" type="submit" class="btn btn-primary float-right">Salvar <i class="fa fa-paper-plane-o ml-1"></i></button>
+        <button data-ng-if="!$ctrl.acao" type="reset" class="btn btn-default float-right">Resetar <i class="fa fa-refresh ml-1"></i></button>
+    </form>
+
+</section>
