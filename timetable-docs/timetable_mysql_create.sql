@@ -43,16 +43,18 @@ CREATE TABLE `disciplina` (
 );
 
 CREATE TABLE `matriz_disciplinas` (
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`matriz` INT NOT NULL,
 	`disciplina` INT NOT NULL,
-	`semestre` INT NOT NULL DEFAULT '1'
+	`semestre` INT NOT NULL DEFAULT '1',
+	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `oferta_disciplina` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`turno` INT NOT NULL,
 	`semestre_letivo` INT NOT NULL,
-	`disciplina` INT NOT NULL,
+	`matriz_disciplina` INT NOT NULL,
 	`creditos_totais` INT NOT NULL,
 	`creditos_restantes` INT NOT NULL,
 	PRIMARY KEY (`id`)
@@ -97,11 +99,21 @@ CREATE TABLE `dia_da_semana` (
 );
 
 CREATE TABLE `horario_semestre_letivo` (
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`semestre_letivo` INT NOT NULL,
 	`prof_oferta_disciplina` INT NOT NULL,
 	`dia_semana` INT NOT NULL,
 	`turno` INT NOT NULL,
-	`periodo` INT NOT NULL
+	`periodo` INT NOT NULL,	
+	`laboratorio` INT,	
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `laboratorio` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`nome` varchar(100) NOT NULL UNIQUE,
+	`eixo` INT NOT NULL,
+	PRIMARY KEY (`id`)
 );
 
 ALTER TABLE `curso_periodos` ADD CONSTRAINT `curso_periodos_fk0` FOREIGN KEY (`turno`) REFERENCES `turno`(`id`);
@@ -118,7 +130,7 @@ ALTER TABLE `oferta_disciplina` ADD CONSTRAINT `oferta_disciplina_fk0` FOREIGN K
 
 ALTER TABLE `oferta_disciplina` ADD CONSTRAINT `oferta_disciplina_fk1` FOREIGN KEY (`semestre_letivo`) REFERENCES `semestre_letivo`(`id`);
 
-ALTER TABLE `oferta_disciplina` ADD CONSTRAINT `oferta_disciplina_fk2` FOREIGN KEY (`disciplina`) REFERENCES `disciplina`(`id`);
+ALTER TABLE `oferta_disciplina` ADD CONSTRAINT `oferta_disciplina_fk2` FOREIGN KEY (`matriz_disciplina`) REFERENCES `matriz_disciplinas`(`id`);
 
 ALTER TABLE `professor_oferta_disciplina` ADD CONSTRAINT `professor_oferta_disciplina_fk0` FOREIGN KEY (`professor`) REFERENCES `professor`(`id`);
 
@@ -134,3 +146,6 @@ ALTER TABLE `horario_semestre_letivo` ADD CONSTRAINT `horario_semestre_letivo_fk
 
 ALTER TABLE `horario_semestre_letivo` ADD CONSTRAINT `horario_semestre_letivo_fk4` FOREIGN KEY (`periodo`) REFERENCES `periodo`(`id`);
 
+ALTER TABLE `horario_semestre_letivo` ADD CONSTRAINT `horario_semestre_letivo_fk5` FOREIGN KEY (`laboratorio`) REFERENCES `laboratorio`(`id`);
+
+ALTER TABLE `laboratorio` ADD CONSTRAINT `laboratorio_fk0` FOREIGN KEY (`eixo`) REFERENCES `eixo`(`id`);

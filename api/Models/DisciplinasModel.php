@@ -6,39 +6,39 @@ use PDO;
 
 class DisciplinasModel extends BaseModel
 {
-    final public function save($nome)
+    final public function save($nome,$credito)
     {
-        $query = "INSERT INTO tbl_ano (nome) VALUE (?)";
+        $query = "INSERT INTO disciplina (nome,credito) VALUE (?,?)";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$nome]);
+        $stmt->execute([$nome, $credito]);
     }
 
-    final public function edit($id, $ano)
+    final public function edit($id, $nome, $credito)
     {
-        $query = "UPDATE tbl_ano SET nome = ? WHERE id = ?";
+        $query = "UPDATE disciplina SET nome = ?, credito = ? WHERE id = ?";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$ano, $id]);
+        $stmt->execute([$nome, $credito, $id]);
     }
 
     final public function delete($id)
     {
-        $query = "DELETE FROM tbl_ano WHERE id = ?";
+        $query = "DELETE FROM disciplina WHERE id = ?";
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$id]);
     }
 
     final public function list()
     {
-        $query = "SELECT * FROM tbl_disciplinas";
+        $query = "SELECT * FROM disciplina";
         $stmt = parent::con()->prepare($query);
         $stmt->execute();
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    final public function findByAno($ano)
+    final public function findByNome($nome)
     {
-        $query = "SELECT * FROM tbl_ano a WHERE a.nome = ?";
+        $query = "SELECT * FROM disciplina a WHERE a.nome = ?";
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$ano]);
         
