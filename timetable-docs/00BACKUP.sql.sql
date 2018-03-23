@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `timetable` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `timetable`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: timetable
@@ -52,14 +50,16 @@ DROP TABLE IF EXISTS `curso_periodos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `curso_periodos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `turno` int(11) NOT NULL,
   `qtde_periodos` int(11) NOT NULL,
   `curso` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `curso_periodos_fk0` (`turno`),
   KEY `curso_periodos_fk1` (`curso`),
   CONSTRAINT `curso_periodos_fk0` FOREIGN KEY (`turno`) REFERENCES `turno` (`id`),
   CONSTRAINT `curso_periodos_fk1` FOREIGN KEY (`curso`) REFERENCES `curso` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `curso_periodos` (
 
 LOCK TABLES `curso_periodos` WRITE;
 /*!40000 ALTER TABLE `curso_periodos` DISABLE KEYS */;
-INSERT INTO `curso_periodos` VALUES (1,2,1),(2,2,1),(2,2,2);
+INSERT INTO `curso_periodos` VALUES (1,1,2,1),(2,2,2,1),(3,2,2,2);
 /*!40000 ALTER TABLE `curso_periodos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,16 +341,11 @@ DROP TABLE IF EXISTS `professor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `professor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(200) NOT NULL,
-  `ativo` tinyint(1) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
   `creditos_totais` int(11) NOT NULL DEFAULT '0',
   `creditos_livres` int(11) NOT NULL DEFAULT '0',
-  `coordenador` tinyint(1) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `senha` varchar(100) NOT NULL,
-  `cpf` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `nome` (`nome`)
+  CONSTRAINT `professor_fk0` FOREIGN KEY (`id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -360,7 +355,7 @@ CREATE TABLE `professor` (
 
 LOCK TABLES `professor` WRITE;
 /*!40000 ALTER TABLE `professor` DISABLE KEYS */;
-INSERT INTO `professor` VALUES (1,'JOARI',1,0,0,0,'joari','1234',NULL),(2,'AGEBSON',1,0,0,0,'agebson','1234',NULL),(3,'AJALMAR',1,0,0,0,'ajalmar','1234',NULL),(4,'ANDERSON',1,0,0,0,'anderson','1234',NULL),(5,'AMAURI',1,0,0,0,'amauri','1234',NULL),(6,'SHARA',1,0,0,1,'shara','1234',NULL),(7,'ADRIANO',1,0,0,0,'adriano','1234',NULL),(8,'CORNELI',1,0,0,0,'corneli','1234',NULL),(9,'SAULO',1,0,0,0,'saulo','1234',NULL),(10,'DANIEL ALENCAR',1,0,0,0,'danielalencar','1234',NULL),(11,'GABRIELA',1,0,0,0,'gabriela','1234',NULL),(12,'SIQUEIRA',1,0,0,0,'siqueira','1234',NULL),(13,'ELDER',1,0,0,0,'elder','1234',NULL),(14,'FABIANA',1,0,0,0,'fabiana','1234',NULL),(15,'JEFFERSON',1,0,0,0,'jefferson','1234',NULL),(16,'IGOR',1,0,0,0,'igor','1234',NULL),(17,'INACIO',1,0,0,0,'inacio','1234',NULL),(18,'JEAN',1,0,0,0,'jean','1234',NULL),(19,'NIVANDO',1,0,0,0,'nivando','1234',NULL),(20,'OTAVIO',1,0,0,0,'otavio','1234',NULL),(21,'SANDRO',1,0,0,0,'sandro','1234',NULL),(22,'JONAS',1,0,0,0,'jonas','1234',NULL),(23,'DANIEL FERREIRA',1,0,0,0,'danielferreira','1234',NULL),(24,'WELLINGTON',1,0,0,0,'wellington','1234',NULL),(25,'ALISSON',1,0,0,0,'alisson','1234',NULL),(26,'THIAGO ALVES',1,0,0,0,'thiagoalves','1234',NULL),(27,'THIAGO QUEIROZ',1,0,0,0,'thiagoqueiroz','1234',NULL);
+INSERT INTO `professor` VALUES (1,1,0,0),(2,1,0,0),(3,1,0,0),(4,1,0,0),(5,1,0,0),(6,1,0,0),(7,1,0,0),(8,1,0,0),(9,1,0,0),(10,1,0,0),(11,1,0,0),(12,1,0,0),(13,1,0,0),(14,1,0,0),(15,1,0,0),(16,1,0,0),(17,1,0,0),(18,1,0,0),(19,1,0,0),(20,1,0,0),(21,1,0,0),(22,1,0,0),(23,1,0,0),(24,1,0,0),(25,1,0,0),(26,1,0,0),(27,1,0,0);
 /*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,6 +437,64 @@ LOCK TABLES `turno` WRITE;
 INSERT INTO `turno` VALUES (1,'MANHÃ'),(3,'NOITE'),(2,'TARDE');
 /*!40000 ALTER TABLE `turno` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `sexo` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'JOARI',NULL,NULL,0),(2,'AGEBSON',NULL,NULL,0),(3,'AJALMAR',NULL,NULL,0),(4,'ANDERSON',NULL,NULL,0),(5,'AMAURI',NULL,NULL,0),(6,'SHARA',NULL,NULL,0),(7,'ADRIANO',NULL,NULL,0),(8,'CORNELI',NULL,NULL,0),(9,'SAULO',NULL,NULL,0),(10,'DANIEL ALENCAR',NULL,NULL,0),(11,'GABRIELA',NULL,NULL,0),(12,'SIQUEIRA',NULL,NULL,0),(13,'ELDER',NULL,NULL,0),(14,'FABIANA',NULL,NULL,0),(15,'JEFFERSON',NULL,NULL,0),(16,'IGOR',NULL,NULL,0),(17,'INACIO',NULL,NULL,0),(18,'JEAN',NULL,NULL,0),(19,'NIVANDO',NULL,NULL,0),(20,'OTAVIO',NULL,NULL,0),(21,'SANDRO',NULL,NULL,0),(22,'JONAS',NULL,NULL,0),(23,'DANIEL FERREIRA',NULL,NULL,0),(24,'WELLINGTON',NULL,NULL,0),(25,'ALISSON',NULL,NULL,0),(26,'THIAGO ALVES',NULL,NULL,0),(27,'THIAGO QUEIROZ',NULL,NULL,0);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario_auth`
+--
+
+DROP TABLE IF EXISTS `usuario_auth`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario_auth` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(45) NOT NULL,
+  `senha` varchar(45) NOT NULL DEFAULT '1234',
+  `perfil` enum('secretaria','professor','aluno') NOT NULL DEFAULT 'professor',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `token` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token_UNIQUE` (`token`),
+  KEY `usuario_auth_fk0` (`id`),
+  CONSTRAINT `usuario_auth_fk0` FOREIGN KEY (`id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario_auth`
+--
+
+LOCK TABLES `usuario_auth` WRITE;
+/*!40000 ALTER TABLE `usuario_auth` DISABLE KEYS */;
+INSERT INTO `usuario_auth` VALUES (1,'JOARI','1234','professor',1,NULL),(2,'AGEBSON','1234','professor',1,NULL),(3,'AJALMAR','1234','professor',1,NULL),(4,'ANDERSON','1234','professor',1,NULL),(5,'AMAURI','1234','professor',1,NULL),(6,'SHARA','1234','professor',1,NULL),(7,'ADRIANO','1234','professor',1,NULL),(8,'CORNELI','1234','professor',1,NULL),(9,'SAULO','1234','professor',1,NULL),(10,'DANIEL ALENCAR','1234','professor',1,NULL),(11,'GABRIELA','1234','professor',1,NULL),(12,'SIQUEIRA','1234','professor',1,NULL),(13,'ELDER','1234','professor',1,NULL),(14,'FABIANA','1234','professor',1,NULL),(15,'JEFFERSON','1234','professor',1,NULL),(16,'IGOR','1234','professor',1,NULL),(17,'INACIO','1234','professor',1,NULL),(18,'JEAN','1234','professor',1,NULL),(19,'NIVANDO','1234','professor',1,NULL),(20,'OTAVIO','1234','professor',1,NULL),(21,'SANDRO','1234','professor',1,NULL),(22,'JONAS','1234','professor',1,NULL),(23,'DANIEL FERREIRA','1234','professor',1,NULL),(24,'WELLINGTON','1234','professor',1,NULL),(25,'ALISSON','1234','professor',1,NULL),(26,'THIAGO ALVES','1234','professor',1,NULL),(27,'THIAGO QUEIROZ','1234','professor',1,NULL);
+/*!40000 ALTER TABLE `usuario_auth` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -452,4 +505,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-22 20:16:21
+-- Dump completed on 2018-03-22 22:35:53
