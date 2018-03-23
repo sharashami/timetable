@@ -109,11 +109,22 @@ class ProfessoresModel extends BaseModel
             throw $exception;
         }
     }
-
+ 
     final public function list()
     {
-        $result = parent::con()->prepare("SELECT u.*, p.id as id_professor, p.disciplinas FROM tbl_professores p, tbl_usuarios u WHERE p.id_usuario = u.id");
+        //$result = parent::con()->prepare("SELECT u.*, p.id as id_professor, p.disciplinas FROM tbl_professores p, tbl_usuarios u WHERE p.id_usuario = u.id");
+        $result = parent::con()->prepare("SELECT u.* FROM professor p INNER JOIN usuario u ON p.id = u.id;");
+        
         $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
+    final public function read($id)
+    {
+        //$result = parent::con()->prepare("SELECT u.*, p.id as id_professor, p.disciplinas FROM tbl_professores p, tbl_usuarios u WHERE p.id_usuario = u.id");
+        $stmt = parent::con()->prepare("SELECT u.* FROM professor p INNER JOIN usuario u ON p.id = u.id WHERE p.id = ?;");
+        $stmt->execute([$id]);
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 }
