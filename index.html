@@ -1,92 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-ng-app="app" data-ng-controller="appCtrl as vm">
+<html lang="pt-br" data-ng-app="app">
 
 <head>
     <base href="/">
-    <title data-ng-bind="vm.getTitle()"></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" type="text/css" href="/app/content/css/bootstrap.min.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="app/content/css/mdb.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/app/content/css/angular-toastr.css" />
-    <link rel="stylesheet" type="text/css" href="/app/content/css/loading-bar.css" />
+    <link rel="stylesheet" href="app/content/css/bootstrap.min.css">
+    <link data-ng-repeat="css in $root.css track by $index" rel="stylesheet" href="{{css}}">
 
-    <!-- <link rel="stylesheet" type="text/css" href="app/content/css/login.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="app/content/css/default.css"> -->
-    <link data-ng-repeat="link in vm.getCss()" rel="stylesheet" type="text/css" data-ng-href={{link}}>
-
-    <style>
-        #content {
-            margin-top: 120px !important;
-        }
-        
-        section {
-            margin-top: 20px;
-        }
-        
-        main {
-            margin-bottom: 200px;
-        }
-    </style>
+    <title data-ng-bind="$root.title"></title>
+    <!-- <script>
+        document.write('<base href="' + document.location + '" />');
+    </script> -->
 </head>
 
 <body>
+    <ui-view></ui-view>
 
-    <div ui-view="topNav"></div>
+    <script src="app/content/js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="app/content/js/popper.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="app/content/js/bootstrap.min.js"></script>
 
-    <main role="main" id="main">
-        <div data-ui-view></div>
-    </main>
-
-    <div data-ng-if="!vm.state.is('login')" data-ng-include="'/app/layout/footer.html'"></div>
-
-    <script src="/app/content/js/jquery-3.2.1.min.js"></script>
-    <script src="/app/content/js/popper.min.js"></script>
-    <script src="/app/content/js/bootstrap.min.js"></script>
-    <script src="/app/content/js/mdb.min.js"></script>
-    <script src="/app/content/js/default.js"></script>
-
-    <script src="/app/content/js/angular.js"></script>
-
-    <script src="/app/content/js/ui-router.js"></script>
-    <script src="/app/content/js/ngStorage.js"></script>
-    <script src="/app/content/js/ngAnimate.js"></script>
-    <script src="/app/content/js/ngMessages.js"></script>
-    <script src="/app/content/js/loading-bar.js"></script>
-    <script src="/app/content/js/angular-drag-and-drop-lists.js"></script>
-    <script src="/app/content/js/angular-sanitize.min.js"></script>
-
-    <script src="app.js"></script>
+    <script src="app/content/js/angular.min.js"></script>
+    <script src="app.module.js"></script>
     <script src="app.config.js"></script>
-    <script src="app.controller.js"></script>
-    <script src="/app/components/toastr.config.js"></script>
+    <script src="app.run.js"></script>
 
-    <script src="/app/layout/topnav.controller.js"></script>
+    <!-- MODULES -->
+    <script src="app/content/js/angular-ui-router.min.js"></script>
 
-    <script src="/app/content/js/angular-toastr.tpls.js"></script>
-    <script src="/app/services/auth.service.js"></script>
-    <script src="/app/services/user.service.js"></script>
-    <script src="/app/secretaria/secretaria.service.js"></script>
-    <script src="/app/services/alocacao.service.js"></script>
-    <script src="/app/services/time.service.js"></script>
-    <script src="/app/content/js/angular-toastr.tpls.js"></script>
-    <script src="/app/content/js/angular-modal-service.js"></script>
-    <script src="/app/services/dialog.service.js"></script>
+    <!-- COMPONENTS -->
+    <script src="app/layout/main.component.js"></script>
+    <script src="app/layout/navtop.component.js"></script>
+    <script src="app/login/login.component.js"></script>
 
-    <script src="/app/layout/topnav.component.js"></script>
-    <script src="/app/login/login.component.js"></script>
-    <script src="/app/secretaria/form-prof.component.js"></script>
-    <script src="/app/secretaria/form-aluno.component.js"></script>
-    <script src="/app/secretaria/form-turma.component.js"></script>
-    <script src="/app/secretaria/cadastro-consulta.component.js"></script>
-    <script src="/app/secretaria/alocar-professor.component.js"></script>
-    <script src="/app/secretaria/alocar-turma.component.js"></script>
-    <script src="/app/secretaria/alocar-aluno.component.js"></script>
-
-    <script src="/app.directives.js"></script>
 </body>
 
 </html>

@@ -3,18 +3,18 @@
 
     angular
         .module('app')
-        .component('login', {
-            templateUrl: 'app/login/login.html',
-            controller: controler,
+        .component('navTop', {
+            templateUrl: 'app/layout/navtop.html',
+            controller: controller,
             controllerAs: '$ctrl',
             bindings: {
                 Binding: '=',
             },
         });
 
-    controler.$inject = [];
+    controller.$inject = [];
 
-    function controler() {
+    function controller() {
         var $ctrl = this;
 
 

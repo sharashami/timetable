@@ -1,47 +1,92 @@
-<div class="main">
-    <div class="container">
-        <div class="text-center">
-            <div class="middle">
-                <div id="login">
+<div class="my-login-page">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="brand">
+                        <img src="app/content/img/logo.jpg">
+                    </div>
+                    <div class="card fat">
+                        <div class="card-body">
+                            <h4 class="card-title">Login</h4>
+                            <form method="POST">
 
-                    <form data-ng-submit="$ctrl.logar()">
-                        <fieldset class="clearfix">
+                                <div class="form-group">
+                                    <label for="email">E-Mail Address</label>
 
-                            <p>
-                                <span class="fa fa-user"></span>
-                                <input type="text" data-ng-model="$ctrl.usuario" placeholder="Username" required>
-                            </p>
-                            <!-- JS because of IE support; better: placeholder="Username" -->
-                            <p>
-                                <span class="fa fa-lock"></span>
-                                <input type="password" data-ng-model="$ctrl.senha" placeholder="Password" required>
-                            </p>
-                            <!-- JS because of IE support; better: placeholder="Password" -->
+                                    <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                </div>
 
-                            <div>
-                                <span style="width:48%; text-align:left;  display: inline-block;">
-                                    <a class="small-text" href="#">Forgot password?</a>
-                                </span>
-                                <span style="width:50%; text-align:right;  display: inline-block;">
-                                    <input type="submit" value="Entrar">
-                                </span>
-                            </div>
+                                <div class="form-group">
+                                    <label for="password">Password
+                                    <a href="forgot.html" class="float-right">
+                                        Forgot Password?
+                                    </a>
+                                </label>
+                                    <input id="password" type="password" class="form-control" name="password" required data-eye>
+                                </div>
 
-                        </fieldset>
-                        <div class="clearfix"></div>
-                    </form>
+                                <div class="form-group">
+                                    <label>
+                                    <input type="checkbox" name="remember"> Remember Me
+                                </label>
+                                </div>
 
-                    <div class="clearfix"></div>
-
+                                <div class="form-group no-margin">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                    Login
+                                </button>
+                                </div>
+                                <div class="margin-top20 text-center">
+                                    Don't have an account? <a href="register.html">Create One</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        Copyright &copy; Your Company 2018
+                    </div>
                 </div>
-                <!-- end login -->
-                <div class="logo">LOGO
-
-                    <div class="clearfix"></div>
-                </div>
-
             </div>
         </div>
-    </div>
-
+    </section>
 </div>
+<script>
+    $(function() {
+        $("input[type='password'][data-eye]").each(function(i) {
+            let $this = $(this);
+
+            $this.wrap($("<div/>", {
+                style: 'position:relative'
+            }));
+            $this.css({
+                paddingRight: 60
+            });
+            $this.after($("<div/>", {
+                html: 'Show',
+                class: 'btn btn-primary btn-sm',
+                id: 'passeye-toggle-' + i,
+                style: 'position:absolute;right:10px;top:50%;transform:translate(0,-50%);padding: 2px 7px;font-size:12px;cursor:pointer;'
+            }));
+            $this.after($("<input/>", {
+                type: 'hidden',
+                id: 'passeye-' + i
+            }));
+            $this.on("keyup paste", function() {
+                $("#passeye-" + i).val($(this).val());
+            });
+            $("#passeye-toggle-" + i).on("click", function() {
+                if ($this.hasClass("show")) {
+                    $this.attr('type', 'password');
+                    $this.removeClass("show");
+                    $(this).removeClass("btn-outline-primary");
+                } else {
+                    $this.attr('type', 'text');
+                    $this.val($("#passeye-" + i).val());
+                    $this.addClass("show");
+                    $(this).addClass("btn-outline-primary");
+                }
+            });
+        });
+    });
+</script>
