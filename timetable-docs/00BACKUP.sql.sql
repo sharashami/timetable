@@ -492,6 +492,7 @@ CREATE TABLE `usuario_auth` (
 
 LOCK TABLES `usuario_auth` WRITE;
 /*!40000 ALTER TABLE `usuario_auth` DISABLE KEYS */;
+INSERT INTO `usuario_auth` VALUES (1,'JOARI','1234','professor',1,NULL),(2,'AGEBSON','1234','professor',1,NULL),(3,'AJALMAR','1234','professor',1,NULL),(4,'ANDERSON','1234','professor',1,NULL),(5,'AMAURI','1234','professor',1,NULL),(6,'SHARA','1234','professor',1,NULL),(7,'ADRIANO','1234','professor',1,NULL),(8,'CORNELI','1234','professor',1,NULL),(9,'SAULO','1234','professor',1,NULL),(10,'DANIEL ALENCAR','1234','professor',1,NULL),(11,'GABRIELA','1234','professor',1,NULL),(12,'SIQUEIRA','1234','professor',1,NULL),(13,'ELDER','1234','professor',1,NULL),(14,'FABIANA','1234','professor',1,NULL),(15,'JEFFERSON','1234','professor',1,NULL),(16,'IGOR','1234','professor',1,NULL),(17,'INACIO','1234','professor',1,NULL),(18,'JEAN','1234','professor',1,NULL),(19,'NIVANDO','1234','professor',1,NULL),(20,'OTAVIO','1234','professor',1,NULL),(21,'SANDRO','1234','professor',1,NULL),(22,'JONAS','1234','professor',1,NULL),(23,'DANIEL FERREIRA','1234','professor',1,NULL),(24,'WELLINGTON','1234','professor',1,NULL),(25,'ALISSON','1234','professor',1,NULL),(26,'THIAGO ALVES','1234','professor',1,NULL),(27,'THIAGO QUEIROZ','1234','professor',1,NULL);
 /*!40000 ALTER TABLE `usuario_auth` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -504,4 +505,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-22 22:19:59
+-- Dump completed on 2018-03-22 22:35:53

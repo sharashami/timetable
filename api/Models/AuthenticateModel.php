@@ -10,8 +10,8 @@ class AuthenticateModel extends BaseModel
     {
         $query =
         "SELECT u.nome, auth.id, auth.perfil, auth.token 
-        FROM tbl_usuarios u, tbl_usuarios_auth auth 
-        WHERE (auth.usuario = ? AND auth.senha = ?) AND u.id = auth.id_usuario";
+        FROM usuario u, usuario_auth auth 
+        WHERE (auth.usuario = ? AND auth.senha = ?) AND u.id = auth.id";
         
         $stmt = parent::con()->prepare($query);
         $stmt->bindParam(1, $usuario);
@@ -24,7 +24,7 @@ class AuthenticateModel extends BaseModel
     final public function setToken($id, $token)
     {
         $query =
-        "UPDATE tbl_usuarios_auth
+        "UPDATE usuario_auth
         SET token = ?
         WHERE id = ?";
 
