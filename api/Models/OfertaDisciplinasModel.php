@@ -22,17 +22,36 @@ class OfertaDisciplinaModel extends BaseModel
 
     final public function list($semestre_letivo)
     {
-        $query = "SELECT c.nome as nome_curso, d.nome as nome_disciplina, d.credito, t.nome as nome_turno, md.semestre FROM oferta_disciplina od"+ 
-            "INNER JOIN turno t ON t.id = od.turno"+
-            "INNER JOIN matriz_disciplinas md ON md.id = od.matriz_disciplina"+
-            "INNER JOIN disciplina d ON d.id = md.disciplina "+
-            "INNER JOIN matriz_curricular mc ON mc.id = md.matriz "+
-            "INNER JOIN curso c ON c.id = mc.curso "+
-            "WHERE semestre_letivo = ?";
+        $query = "SELECT c.nome as nome_curso, d.nome as nome_disciplina, d.credito, t.nome as nome_turno, md.semestre FROM oferta_disciplina od 
+            INNER JOIN turno t ON t.id = od.turno
+            INNER JOIN matriz_disciplinas md ON md.id = od.matriz_disciplina
+            INNER JOIN disciplina d ON d.id = md.disciplina 
+            INNER JOIN matriz_curricular mc ON mc.id = md.matriz 
+            INNER JOIN curso c ON c.id = mc.curso 
+            WHERE semestre_letivo = ?";
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$semestre_letivo]);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    
+    final public function listByProfessor($semestre_letivo,$professor)
+    {
+        $query = "SELECT c.nome as nome_curso, d.nome as nome_disciplina, d.credito, t.nome as nome_turno, md.semestre 
+            FROM  professor_oferta_disciplina pod 
+            INNER JOIN oferta_disciplina od ON pod.oferta_disciplina = od.id 
+            INNER JOIN turno t ON t.id = od.turno
+            INNER JOIN matriz_disciplinas md ON md.id = od.matriz_disciplina
+            INNER JOIN disciplina d ON d.id = md.disciplina 
+            INNER JOIN matriz_curricular mc ON mc.id = md.matriz 
+            INNER JOIN curso c ON c.id = mc.curso 
+            WHERE semestre_letivo = ? AND pod.professor = ?";
+        $stmt = parent::con()->prepare($query);
+        $stmt->execute([$semestre_letivo, $professor]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 }
