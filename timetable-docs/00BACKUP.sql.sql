@@ -149,43 +149,43 @@ INSERT INTO `field` VALUES (1,'COMPUTAÇÃO');
 UNLOCK TABLES;
 
 --
--- Table structure for table `horario_semester`
+-- Table structure for table `schedule`
 --
 
-DROP TABLE IF EXISTS `horario_semester`;
+DROP TABLE IF EXISTS `schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `horario_semester` (
+CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `semester_id` int(11) NOT NULL,
   `prof_available_course_id` int(11) NOT NULL,
   `weekday_id` int(11) NOT NULL,
   `shift_id` int(11) NOT NULL,
-  `periodo` int(11) NOT NULL,
+  `period_id` int(11) NOT NULL,
   `laboratory_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `horario_semester_fk0` (`semester_id`),
-  KEY `horario_semester_fk1` (`prof_available_course_id`),
-  KEY `horario_semester_fk2` (`weekday_id`),
-  KEY `horario_semester_fk3` (`shift_id`),
-  KEY `horario_semester_fk4` (`periodo`),
-  KEY `horario_semester_fk5` (`laboratory_id`),
-  CONSTRAINT `horario_semester_fk0` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`),
-  CONSTRAINT `horario_semester_fk1` FOREIGN KEY (`prof_available_course_id`) REFERENCES `professor_available_course` (`id`),
-  CONSTRAINT `horario_semester_fk2` FOREIGN KEY (`weekday_id`) REFERENCES `weekday` (`id`),
-  CONSTRAINT `horario_semester_fk3` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`),
-  CONSTRAINT `horario_semester_fk4` FOREIGN KEY (`periodo`) REFERENCES `periodo` (`id`),
-  CONSTRAINT `horario_semester_fk5` FOREIGN KEY (`laboratory_id`) REFERENCES `laboratory` (`id`)
+  KEY `schedule_fk0` (`semester_id`),
+  KEY `schedule_fk1` (`prof_available_course_id`),
+  KEY `schedule_fk2` (`weekday_id`),
+  KEY `schedule_fk3` (`shift_id`),
+  KEY `schedule_fk4` (`period_id`),
+  KEY `schedule_fk5` (`laboratory_id`),
+  CONSTRAINT `schedule_fk0` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`),
+  CONSTRAINT `schedule_fk1` FOREIGN KEY (`prof_available_course_id`) REFERENCES `professor_available_course` (`id`),
+  CONSTRAINT `schedule_fk2` FOREIGN KEY (`weekday_id`) REFERENCES `weekday` (`id`),
+  CONSTRAINT `schedule_fk3` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`),
+  CONSTRAINT `schedule_fk4` FOREIGN KEY (`period_id`) REFERENCES `period` (`id`),
+  CONSTRAINT `schedule_fk5` FOREIGN KEY (`laboratory_id`) REFERENCES `laboratory` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `horario_semester`
+-- Dumping data for table `schedule`
 --
 
-LOCK TABLES `horario_semester` WRITE;
-/*!40000 ALTER TABLE `horario_semester` DISABLE KEYS */;
-/*!40000 ALTER TABLE `horario_semester` ENABLE KEYS */;
+LOCK TABLES `schedule` WRITE;
+/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
