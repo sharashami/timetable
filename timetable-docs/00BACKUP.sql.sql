@@ -56,7 +56,7 @@ CREATE TABLE `program_periods` (
   `program_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_periods_fk0` (`shift_id`),
-  KEY `program_periods_fk1` (`program`),
+  KEY `program_periods_fk1` (`program_id`),
   CONSTRAINT `program_periods_fk0` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`),
   CONSTRAINT `program_periods_fk1` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
