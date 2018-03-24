@@ -3,7 +3,7 @@ namespace Api\Rests;
 
 use Core\BaseRest;
 
-final class ProfessoresRest extends BaseRest
+final class ProfessorsRest extends BaseRest
 {
 
     public function __construct()

@@ -11,16 +11,16 @@ class CoursesRest extends BaseRest
         parent::__construct();
         
         parent::add('POST', [
-            ['disciplinas', 'save']
+            ['courses', 'save']
         ]);
         parent::add('GET', [
-            ['disciplinas', 'list']
+            ['courses', 'list']
         ]);
         parent::add('PUT', [
-            ['disciplinas/:id', 'edit']
+            ['courses/:id', 'edit']
         ]);
         parent::add('DELETE', [
-            ['disciplinas/:id', 'delete']
+            ['courses/:id', 'delete']
         ]);
     }
 
@@ -32,13 +32,13 @@ class CoursesRest extends BaseRest
 
     final public function list()
     {
-        $disciplinas = $this->model->list();
-        parent::response($disciplinas, 200);
+        $courses = $this->model->list();
+        parent::response($courses, 200);
     } 
 
     final public function edit($req)
     {
-        $this->model->edit(parent::getParam("id"), $req['nome']);
+        $this->model->edit(parent::getParam("id"), $req['description']);
         parent::response("", 200);
         
     } 

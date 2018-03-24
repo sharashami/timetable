@@ -4,7 +4,7 @@ namespace Api\Models;
 use Core\BaseModel;
 use PDO;
 
-class DisciplinasModel extends BaseModel
+class CoursesModel extends BaseModel
 {
     final public function save($nome,$credito)
     {
