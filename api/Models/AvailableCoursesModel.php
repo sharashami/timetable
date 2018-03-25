@@ -38,7 +38,7 @@ class AvailableCoursesModel extends BaseModel
     }
 
     
-    final public function listByProfessor($semestre_letivo,$professor)
+    final public function listByProfessor($semester_id,$professor)
     {
         $query = "SELECT p.description as program_description, c.description as course_description, 
             c.credits, s.description as shift_description, psc.semester_number 
@@ -51,7 +51,7 @@ class AvailableCoursesModel extends BaseModel
             INNER JOIN program p ON p.id = ps.program_id 
             WHERE semester_id = ? AND pao.professor = ?";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$semestre_letivo, $professor]);
+        $stmt->execute([$semester_id, $professor]);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

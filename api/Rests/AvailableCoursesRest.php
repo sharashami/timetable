@@ -12,6 +12,7 @@ class AvailableCoursesRest extends BaseRest
         
         parent::add('POST', [
             ['courses', 'save']
+
         ]);
         parent::add('GET', [
             ['courses/available/:idfield', 'list'],

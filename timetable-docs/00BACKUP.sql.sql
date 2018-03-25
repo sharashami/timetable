@@ -368,12 +368,12 @@ DROP TABLE IF EXISTS `professor_available_course`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `professor_available_course` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `professor` int(11) NOT NULL,
+  `professor_id` int(11) NOT NULL,
   `available_course_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `professor_available_course_fk0` (`professor`),
+  KEY `professor_available_course_fk0` (`professor_id`),
   KEY `professor_available_course_fk1` (`available_course_id`),
-  CONSTRAINT `professor_available_course_fk0` FOREIGN KEY (`professor`) REFERENCES `professor` (`id`),
+  CONSTRAINT `professor_available_course_fk0` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`),
   CONSTRAINT `professor_available_course_fk1` FOREIGN KEY (`available_course_id`) REFERENCES `available_course` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -385,6 +385,11 @@ CREATE TABLE `professor_available_course` (
 LOCK TABLES `professor_available_course` WRITE;
 /*!40000 ALTER TABLE `professor_available_course` DISABLE KEYS */;
 /*!40000 ALTER TABLE `professor_available_course` ENABLE KEYS */;
+      INSERT INTO `timetable`.`professor_available_course`
+(`professor_id`,
+`available_course_id`)
+VALUES
+(1,1);
 UNLOCK TABLES;
 
 --
