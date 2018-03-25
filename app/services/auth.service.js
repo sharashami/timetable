@@ -1,47 +1,28 @@
 (function() {
     "use strict";
 
-    angular.module('app')
+    angular
+        .module('app')
         .factory('AuthService', AuthService);
 
-    AuthService.$inject = ['API', '$localStorage', '$http', 'user'];
+    AuthService.$inject = ['API', '$http'];
 
-    function AuthService(API, $localStorage, $http, user) {
+    function AuthService(API, $http) {
         var service = {
-            login: login,
+            signIn: signIn,
             logout: logout
         };
 
         return service;
 
         ////////////////
-        function login(usuario, senha, callback) {
-            $http
-                .post(API + "authenticate", {
-                    'usuario': usuario,
-                    'senha': senha
-                })
-                .then(function(response) {
-                    console.log(response);
-                    if (response.data.logged) {
-                        user.setNome(response.data.nome);
-                        user.setPerfil(response.data.perfil);
-                        user.setToken(response.data.token);
-                        user.loggedIn();
-                        $http.defaults.headers.common.Authorization = 'Bearer ' + user.getToken();
-                        callback(true);
-                    } else {
-                        callback(false);
-                    }
-                })
-                .catch(function(response) {
-                    console.log("Erro na requisição de autenticação!");
-                });
+
+        function signIn(login) {
+            return $http.post(API + "/authenticate/login", login);
         }
 
         function logout() {
-            // delete $localStorage.currentUser;
-            user.logout();
+            return $http.post(API + "/authenticate/logout");
         }
     }
 })();

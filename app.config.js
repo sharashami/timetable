@@ -30,9 +30,11 @@
         .module('app')
         .config(config);
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider'];
 
-    function config($stateProvider, $urlRouterProvider, $locationProvider) {
+    function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+        $httpProvider.interceptors.push("HttpInterceptor");
 
         $urlRouterProvider.otherwise('/home');
 
@@ -53,7 +55,7 @@
                         template: '<h1>asdfsdfsadf</h1>'
                     }
                 },
-                title: "joshua"
+                title: "Home"
             })
             .state('root.404', {
                 url: '/404',
@@ -64,26 +66,26 @@
                 }
             })
             // ACESS
-            .state('acess', {
+            .state('access', {
                 abstract: true,
                 data: { css: ['app/content/css/login.css'] }
             })
-            .state('acess.login', {
+            .state('access.login', {
                 url: '/login',
                 views: { '@': { component: 'login' } },
                 title: "Login",
             })
-            .state('acess.recovery', {
+            .state('access.recovery', {
                 url: '/recovery',
                 views: { '@': { component: 'recovery' } },
                 title: "Recovery",
             })
-            .state('acess.reset', {
+            .state('access.reset', {
                 url: '/reset',
                 views: { '@': { component: 'reset' } },
                 title: "Reset",
             })
-            .state('acess.register', {
+            .state('access.register', {
                 url: '/register',
                 views: { '@': { component: 'register' } },
                 title: "Register",

@@ -15,7 +15,9 @@
                 </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0">
-                <a class="btn btn-outline-success my-2 my-sm-0" ui-sref="acess.login">Login</a>
+                <img src="app/content/img/teacher (2).png" alt="" width="40" height="40" class="rounded-circle mr-3">
+                <span class="text-white mr-3">{{$ctrl.user.getName()}}</span>
+                <a id="logout" class="my-2 my-sm-0 mr-4 text-white fas fa-sign-out-alt fa-2x pointer" data-ng-click="$ctrl.logout()"></a>
             </form>
         </div>
     </nav>

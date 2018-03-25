@@ -12,18 +12,18 @@ class AuthenticateRest extends BaseRest
         parent::__construct();
         
         $this->add('POST', [
-            ['authenticate', 'login']
+            ['authenticate/login', 'login'],
+            ['authenticate/logout', 'logout']
         ]);
     }
 
     public function login($req)
     {
-        if ($dados = $this->model->autenticar($req['login'], $req['password'])) {
+        if ($dados = $this->model->login($req['email'], $req['password'])) {
             $token = JWT::newToken([
                 'name' => $dados['name']
             ]);
             
-            // $this->model->setToken($dados['id'], $token);
             $this->response([
                 "logged" => true,
                 "name" => $dados["name"],
@@ -31,10 +31,12 @@ class AuthenticateRest extends BaseRest
                 "token" => $token
             ]);
         } else {
-            $this->response([
-                "logged" => false,
-                "message" => "não foi possível autenticar"
-            ]);
-        }
+            $this->response(null, 403);
+        }    
+    }
+
+    public function logout($req)
+    {
+        $this->response();
     }
 }

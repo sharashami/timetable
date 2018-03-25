@@ -12,16 +12,23 @@
             },
         });
 
-    controller.$inject = [];
+    controller.$inject = ['user', 'AuthService'];
 
-    function controller() {
+    function controller(user, AuthService) {
+        console.log(user.getName());
         var $ctrl = this;
-
+        $ctrl.user = user;
+        $ctrl.logout = logout;
 
         ////////////////
 
         $ctrl.$onInit = function() {};
         $ctrl.$onChanges = function(changesObj) {};
         $ctrl.$onDestroy = function() {};
+
+        function logout() {
+            AuthService.logout()
+                .then(resp => user.logout());
+        }
     }
 })();

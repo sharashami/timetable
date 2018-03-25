@@ -136,8 +136,8 @@ abstract class BaseRest
     {
         switch ($method) {
             case "POST":
-                $this->request = $this->cleanInputs($_POST);
-                // return json_decode(file_get_contents('php://input'), true);
+                // $this->request = $this->cleanInputs($_POST);
+                $this->request = json_decode(file_get_contents('php://input'), true);
                 break;
             case "GET":
             case "DELETE":
