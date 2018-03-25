@@ -3,7 +3,7 @@ namespace Api\Rests;
 
 use Core\BaseRest;
 
-final class ProfessoresRest extends BaseRest
+final class ProfessorsRest extends BaseRest
 {
 
     public function __construct()
@@ -14,14 +14,15 @@ final class ProfessoresRest extends BaseRest
             ['professores', 'save']
         ]);
         $this->add('GET', [
-            ['professores', 'list']
+            ['professores', 'list'],
+            ['professores/:id', 'read']
         ]);
         $this->add('PUT', [
             ['professores/:id', 'edit']
         ]);
         $this->add('DELETE', [
             ['professores/:id', 'delete']
-        ]);
+        ]); 
     }
 
     final public function save($req)
@@ -42,10 +43,15 @@ final class ProfessoresRest extends BaseRest
         $this->model->delete(parent::getParam("id"));
         parent::response("", 200);
     } 
-
+ 
     final public function list()
     {
         $professores = $this->model->list();
+        $professores ? $this->response($professores) : $this->response("", 200);
+    }
+    final public function read()
+    {
+        $professores = $this->model->read(parent::getParam("id"));
         $professores ? $this->response($professores) : $this->response("", 200);
     } 
 }

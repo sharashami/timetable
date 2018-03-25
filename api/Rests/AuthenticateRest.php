@@ -18,22 +18,22 @@ class AuthenticateRest extends BaseRest
 
     public function login($req)
     {
-        if ($dados = $this->model->autenticar($req['usuario'], $req['senha'])) {
+        if ($dados = $this->model->autenticar($req['login'], $req['password'])) {
             $token = JWT::newToken([
-                'nome' => $dados['nome']
+                'name' => $dados['name']
             ]);
             
             // $this->model->setToken($dados['id'], $token);
             $this->response([
                 "logged" => true,
-                "nome" => $dados["nome"],
-                "perfil" => $dados["perfil"],
+                "name" => $dados["name"],
+                "profile" => $dados["profile"],
                 "token" => $token
             ]);
         } else {
             $this->response([
                 "logged" => false,
-                "mensagem" => "não foi possível autenticar"
+                "message" => "não foi possível autenticar"
             ]);
         }
     }

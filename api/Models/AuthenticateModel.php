@@ -9,9 +9,9 @@ class AuthenticateModel extends BaseModel
     final public function autenticar($usuario, $senha)
     {
         $query =
-        "SELECT u.nome, auth.id, auth.perfil, auth.token 
-        FROM usuario u, usuario_auth auth 
-        WHERE (auth.usuario = ? AND auth.senha = ?) AND u.id = auth.id";
+        "SELECT u.name, auth.id, auth.profile, auth.token 
+        FROM user u, usuario_auth auth 
+        WHERE (auth.login = ? AND auth.password = ?) AND u.id = auth.id";
         
         $stmt = parent::con()->prepare($query);
         $stmt->bindParam(1, $usuario);
