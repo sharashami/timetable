@@ -63,6 +63,7 @@
                     }
                 }
             })
+            // ACESS
             .state('acess', {
                 abstract: true,
                 data: { css: ['app/content/css/login.css'] }
@@ -71,6 +72,21 @@
                 url: '/login',
                 views: { '@': { component: 'login' } },
                 title: "Login",
+            })
+            .state('acess.recovery', {
+                url: '/recovery',
+                views: { '@': { component: 'recovery' } },
+                title: "Recovery",
+            })
+            .state('acess.reset', {
+                url: '/reset',
+                views: { '@': { component: 'reset' } },
+                title: "Reset",
+            })
+            .state('acess.register', {
+                url: '/register',
+                views: { '@': { component: 'register' } },
+                title: "Register",
             });
 
         $locationProvider.html5Mode(true);

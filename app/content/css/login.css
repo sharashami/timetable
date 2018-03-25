@@ -72,3 +72,37 @@ body {
     color: #888;
     text-align: center;
 }
+
+.password-custom {
+    position: relative;
+}
+
+.password-custom input {
+    padding-right: 75px;
+}
+
+.password-custom button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+    padding: 2px 7px;
+    font-size: 12px;
+}
+
+.password-custom div {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+}
+
+.password-custom div label {
+    transform: translate(0, -50%);
+    padding: 2px 7px;
+    font-size: 12px;
+}
+
+.password-custom div label.btn-outline-primary:hover {
+    background-color: white;
+    color: #007bff;
+}
