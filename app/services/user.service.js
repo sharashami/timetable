@@ -75,12 +75,8 @@
         }
 
         function logout() {
-            if ($localStorage.currentUser)
-                $localStorage.$reset();
-            //delete $localStorage.currentUser
-            else
-                $sessionStorage.$reset();
-            // delete $sessionStorage.currentUser;
+            $localStorage.currentUser ? $localStorage.$reset() : $sessionStorage.$reset();
+            user = { logged: false };
             $state.go('access.login');
         }
 

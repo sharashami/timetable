@@ -15,7 +15,6 @@
     controller.$inject = ['user', 'AuthService'];
 
     function controller(user, AuthService) {
-        console.log(user.getName());
         var $ctrl = this;
         $ctrl.user = user;
         $ctrl.logout = logout;

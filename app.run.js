@@ -3,8 +3,7 @@
 
     angular
         .module('app')
-        .run(run)
-        .constant("API", "http://timetable/api");
+        .run(run);
 
     run.$inject = ['$transitions', '$rootScope', 'user']
 
@@ -12,7 +11,6 @@
 
         $transitions.onBefore({}, function(transition) {
             $rootScope.title = transition.to().title;
-
             if (!transition.to().css) {
                 $rootScope.css = transition.treeChanges().to
                     .filter(element => element.state.data)
@@ -23,8 +21,12 @@
             }
         });
 
+        $transitions.onBefore({ to: 'root.**' }, function(transition) {
+            if (!user.isLoggedIn())
+                return transition.router.stateService.target('access.login');
+        });
+
         $transitions.onBefore({ to: 'access.login' }, function(transition) {
-            console.log(user.isLoggedIn());
             if (user.isLoggedIn())
                 return transition.router.stateService.target('root.home');
         });

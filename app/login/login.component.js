@@ -20,7 +20,6 @@
         $ctrl.signIn = function() {
             AuthService.signIn($ctrl.login)
                 .then(resp => {
-                    console.log(resp);
                     if (resp.data.logged === true) {
                         $ctrl.remember === true ? user.setType("local") : user.setType();
                         user.loggedIn();

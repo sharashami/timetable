@@ -7,5 +7,6 @@
             'toastr',
             'ngAnimate',
             'ngStorage'
-        ]);
+        ])
+        .constant("API", "http://timetable/api");
 })();
