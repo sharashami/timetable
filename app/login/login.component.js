@@ -21,8 +21,7 @@
             AuthService.signIn($ctrl.login)
                 .then(resp => {
                     if (resp.data.logged === true) {
-                        $ctrl.remember === true ? user.setType("local") : user.setType();
-                        user.loggedIn();
+                        user.loggedIn(!!$ctrl.remember);
                         user.setToken(resp.data.token);
                         user.setName(resp.data.name);
                         user.setProfile(resp.data.profile);
@@ -34,7 +33,6 @@
                         toastr.error('Login ou Senha inválidos!');
                 });
         };
-
 
         ////////////////
 

@@ -11,10 +11,8 @@
 
         return {
             request: function(config) {
-                var token = user.getToken();
-
-                if (token)
-                    config.headers['Authorization'] = 'Bearer ' + token;
+                if (user.isLoggedIn())
+                    config.headers['Authorization'] = 'Bearer ' + user.getToken() || null;
 
                 return config;
             },
