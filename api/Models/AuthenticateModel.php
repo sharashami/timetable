@@ -6,19 +6,18 @@ use PDO;
 
 class AuthenticateModel extends BaseModel
 {
-    final public function autenticar($usuario, $senha)
+    final public function login($email, $password)
     {
-        $query =
-        "SELECT u.name, auth.id, auth.profile, auth.token 
-        FROM user u, usuario_auth auth 
-        WHERE (auth.login = ? AND auth.password = ?) AND u.id = auth.id";
-        
-        $stmt = parent::con()->prepare($query);
-        $stmt->bindParam(1, $usuario);
-        $stmt->bindParam(2, $senha);
-        $stmt->execute();
-        
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = parent::con()->prepare("SELECT u.name, auth.id, auth.profile, auth.token 
+        FROM user u, user_auth auth 
+        WHERE (auth.login = ? AND auth.password = ?) AND u.id = auth.id");
+
+        $result->execute([
+            $email,
+            $password,
+        ]);
+
+        return $result->fetch(PDO::FETCH_ASSOC);
     }
 
     final public function setToken($id, $token)

@@ -9,12 +9,14 @@
                     <div class="card fat">
                         <div class="card-body">
                             <h4 class="card-title">Login</h4>
-                            <form>
+
+                            <form data-ng-submit="$ctrl.signIn()">
 
                                 <div class="form-group">
                                     <label for="email">Endereço de E-Mail</label>
 
-                                    <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                    <!-- <input id="email" data-ng-model="$ctrl.login.email" type="email" class="form-control" name="email" value="" required autofocus> -->
+                                    <input id="email" data-ng-model="$ctrl.login.email" type="text" class="form-control" name="email" value="" required autofocus>
                                 </div>
 
                                 <div class="form-group">
@@ -24,7 +26,7 @@
                                         </a>
                                     </label>
                                     <div class="password-custom" data-show-password>
-                                        <input id="password" type="password" class="form-control" name="password" required>
+                                        <input id="password" data-ng-model="$ctrl.login.password" type="password" class="form-control" name="password" required>
                                         <div class="btn-group-toggle">
                                             <label class="btn btn-primary btn-sm" data-ng-class="{'btn-primary':!show, 'btn-outline-primary':show}">
                                                 <input type="checkbox" autocomplete="off" data-ng-model="show">Mostrar
@@ -35,7 +37,7 @@
 
                                 <div class="form-group">
                                     <label>
-                                    <input type="checkbox" name="remember"> Lembre de mim
+                                    <input type="checkbox" name="remember" data-ng-model="$ctrl.remember"> Lembre de mim
                                 </label>
                                 </div>
 

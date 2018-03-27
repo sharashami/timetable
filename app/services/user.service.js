@@ -5,63 +5,66 @@
         .module('app')
         .service('user', user);
 
-    user.$inject = ['$localStorage', '$http'];
+    user.$inject = ['$localStorage', '$sessionStorage', '$injector', 'API', '$state'];
 
-    function user($localStorage, $http) {
-        var user;
+    function user($localStorage, $sessionStorage, $injector, API, $state) {
 
-        if (!$localStorage.currentUser)
-            user = $localStorage.currentUser = { logged: false };
-        else
-            user = $localStorage.currentUser;
+        var vm = this,
+            user = $localStorage.currentUser || $sessionStorage.currentUser || null;
 
-        this.isLoggedIn = isLoggedIn;
-        this.loggedIn = loggedIn;
-        this.logout = logout;
-        this.setNome = setNome;
-        this.getNome = getNome;
-        this.setPerfil = setPerfil;
-        this.getPerfil = getPerfil;
-        this.setToken = setToken;
-        this.getToken = getToken;
+        // getSelf= getSelf;
+        vm.isLoggedIn = isLoggedIn;
+        vm.loggedIn = loggedIn;
+        vm.logout = logout;
+        vm.setName = setName;
+        vm.getName = getName;
+        vm.setEmail = setEmail;
+        vm.getEmail = getEmail;
+        vm.setProfile = setProfile;
+        vm.getProfile = getProfile;
+        vm.setToken = setToken;
+        vm.getToken = getToken;
+        vm.getPhoto = getPhoto;
+        vm.setPhoto = setPhoto;
+        vm.setId = setId;
+        vm.getId = getId;
 
         ////////////////
 
-        function getNome() {
-            return user.nome;
-        }
+        function getId() { return user.id }
 
-        function setNome(nome) {
-            user.nome = nome;
-        }
+        function setId(id) { user.id = id }
 
-        function getPerfil() {
-            return user.perfil;
-        }
+        function getName() { return user.name }
 
-        function setPerfil(perfil) {
-            user.perfil = perfil;
-        }
+        function setName(name) { user.name = name }
 
-        function getToken() {
-            return user.token;
-        }
+        function getEmail() { return user.email }
 
-        function setToken(token) {
-            user.token = token;
-        }
+        function setEmail(email) { user.email = email }
 
-        function isLoggedIn() {
-            return user.logged
-        }
+        function getProfile() { return user.profile }
 
-        function loggedIn() {
-            user.logged = true;
+        function setProfile(profile) { user.profile = profile }
+
+        function getToken() { return user.token }
+
+        function setToken(token) { user.token = token }
+
+        function getPhoto() { return user.photo }
+
+        function setPhoto(photo) { user.photo = photo }
+
+        function isLoggedIn() { return !!user }
+
+        function loggedIn(remember) {
+            user = remember ? ($localStorage.currentUser = {}) : ($sessionStorage.currentUser = {});
         }
 
         function logout() {
-            delete $localStorage.currentUser;
-            $http.defaults.headers.common.Authorization = "";
+            $localStorage.currentUser ? $localStorage.$reset() : $sessionStorage.$reset();
+            user = null;
+            $state.go('access.login');
         }
     }
 })();

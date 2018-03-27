@@ -3,6 +3,10 @@
 
     angular
         .module('app', [
-            'ui.router'
-        ]);
+            'ui.router',
+            'toastr',
+            'ngAnimate',
+            'ngStorage'
+        ])
+        .constant("API", "http://timetable/api");
 })();

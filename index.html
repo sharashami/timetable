@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="app/content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="app/content/css/angular-toastr.css">
     <link data-ng-repeat="css in $root.css track by $index" rel="stylesheet" href="{{css}}">
 
     <title data-ng-bind="$root.title"></title>
@@ -27,9 +29,19 @@
     <script src="app.module.js"></script>
     <script src="app.config.js"></script>
     <script src="app.run.js"></script>
+    <script src="app.interceptor.js"></script>
+    <script src="app.templateRequest.js"></script>
+
+    <!-- SERVICES -->
+    <script src="app/services/auth.service.js"></script>
+    <script src="app/services/user.service.js"></script>
 
     <!-- MODULES -->
     <script src="app/content/js/angular-ui-router.min.js"></script>
+    <script src="app/components/toastr.config.js"></script>
+    <script src="app/content/js/angular-toastr.tpls.js"></script>
+    <script src="app/content/js/ngAnimate.js"></script>
+    <script src="app/content/js/ngStorage.min.js"></script>
 
     <!-- COMPONENTS -->
     <script src="app/layout/main.component.js"></script>
