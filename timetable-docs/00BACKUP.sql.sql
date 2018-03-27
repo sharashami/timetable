@@ -479,7 +479,7 @@ DROP TABLE IF EXISTS `user_auth`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_auth` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(45) NOT NULL,
+  `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL DEFAULT '1234',
   `profile` enum('secretary','professor','student') NOT NULL DEFAULT 'professor',
   `status` tinyint(1) NOT NULL DEFAULT '1',
