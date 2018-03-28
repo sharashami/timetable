@@ -22,7 +22,7 @@ class AvailableCoursesModel extends BaseModel
 
     final public function list($semester_id)
     {
-        $query = "SELECT p.description as program_description, c.description as course_description, c.credits, 
+        $query = "SELECT ac.id, p.description as program_description,p.acronym as program_acronym, c.description as course_description, c.credits, 
             s.description as shift_description, psc.semester_number 
             FROM available_course ac 
             INNER JOIN shift s ON s.id = ac.shift_id
@@ -37,12 +37,35 @@ class AvailableCoursesModel extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    final public function remainingList($semester_id)
+    {
+        $query = "SELECT ac.id, p.acronym as program_acronym,  p.description as program_description,p.acronym as program_acronym, c.description as course_description, c.credits, 
+        s.description as shift_description, psc.semester_number 
+        FROM available_course ac 
+        INNER JOIN shift s ON s.id = ac.shift_id
+        INNER JOIN program_structure_courses psc ON psc.id = ac.program_structure_course_id
+        INNER JOIN course c ON c.id = psc.course_id 
+        INNER JOIN program_structure ps ON ps.id = psc.program_structure_id 
+        INNER JOIN program p ON p.id = ps.program_id 
+        WHERE ac.id IN (
+                SELECT ac.id FROM available_course  ac  
+                    WHERE NOT EXISTS (
+                                SELECT pao.available_course_id 
+                                FROM professor_available_course pao 
+                                WHERE ac.id = pao.available_course_id 
+                                AND ac.semester_id = ?)
+        );";
+        $stmt = parent::con()->prepare($query);
+        $stmt->execute([$semester_id]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     final public function listByProfessor($semester_id,$professor)
     {
-        $query = "SELECT p.description as program_description, c.description as course_description, 
+        $query = "SELECT pao.id, p.acronym as program_acronym,  p.description as program_description, c.description as course_description, 
             c.credits, s.description as shift_description, psc.semester_number 
-            FROM  professor_available_course pao 
+            FROM    
             INNER JOIN available_course ac ON ac.id = pao.available_course_id 
             INNER JOIN shift s ON s.id = ac.shift_id
             INNER JOIN program_structure_courses psc ON psc.id = ac.program_structure_course_id

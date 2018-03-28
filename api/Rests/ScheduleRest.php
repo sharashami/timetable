@@ -3,7 +3,7 @@ namespace Api\Rests;
 
 use Core\BaseRest;
 
-class ProfessorAvailableCoursesRest extends BaseRest
+class ScheduleRest extends BaseRest
 {
 
     public function __construct()
@@ -11,18 +11,18 @@ class ProfessorAvailableCoursesRest extends BaseRest
         parent::__construct();
         
         parent::add('GET', [
-            ['courses/available/:idfield/professor/:idprofessor', 'list']
+            ['courses/professor/:idprofessor/semester/:idsemester/', 'list']
         ]);
         parent::add('POST', [
-            ['courses/available/:idavailablecourse/professor/:idprofessor/', 'save']
+            ['courses/:idavailablecourse/professor/:idprofessor/', 'save']
 
         ]);
         parent::add('PUT', [
-            ['courses/available/professor/:id/laboratory/:idlaboratory/', 'setLaboratory']
+            ['courses/professor/:id/laboratory/:idlaboratory/', 'setLaboratory']
         ]);
         
         parent::add('DELETE', [
-            ['courses/available/professor/:id', 'delete']
+            ['courses/professor/:id', 'delete']
         ]);
     }
 
@@ -39,13 +39,13 @@ class ProfessorAvailableCoursesRest extends BaseRest
     } 
     final public function list()
     {
-        $courses = $this->model->list(parent::getParam("idfield"),parent::getParam("idprofessor"));
+        $courses = $this->model->list(parent::getParam("idsemester"),parent::getParam("idprofessor"));
         parent::response($courses, 200);
     } 
 
     final public function listByProfessor()
     {
-        $courses = $this->model->listByProfessor(parent::getParam("idfield"),parent::getParam("idprofessor"));
+        $courses = $this->model->listByProfessor(parent::getParam("idsemester"),parent::getParam("idprofessor"));
         parent::response($courses, 200);
     } 
 

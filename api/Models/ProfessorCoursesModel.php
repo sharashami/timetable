@@ -4,7 +4,7 @@ namespace Api\Models;
 use Core\BaseModel;
 use PDO;
 
-class ProfessorAvailableCoursesModel extends BaseModel
+class ProfessorCoursesModel extends BaseModel
 {
     final public function save( $available_course_id , $professor_id)
     {
@@ -12,14 +12,6 @@ class ProfessorAvailableCoursesModel extends BaseModel
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$professor_id, $available_course_id]);
     }
-
-    final public function setLaboratory( $id , $laboratory_id)
-    {
-        $query = "UPDATE professor_available_course SET laboratory_id = ? WHERE id=?;";
-        $stmt = parent::con()->prepare($query);
-        $stmt->execute([$laboratory_id, $id]);
-    }
-    
     final public function delete($id)
     {
         $query = "DELETE FROM professor_available_course WHERE id = ?";
@@ -30,7 +22,7 @@ class ProfessorAvailableCoursesModel extends BaseModel
     
     final public function list($semester_id,$professor)
     {
-        $query = "SELECT p.description as program_description, c.description as course_description, 
+        $query = "SELECT pao.id, p.acronym as program_acronym, p.description as program_description, c.description as course_description, 
             c.credits, s.description as shift_description, psc.semester_number 
             FROM  professor_available_course pao 
             INNER JOIN available_course ac ON ac.id = pao.available_course_id 
@@ -39,7 +31,7 @@ class ProfessorAvailableCoursesModel extends BaseModel
             INNER JOIN course c ON c.id = psc.course_id 
             INNER JOIN program_structure ps ON ps.id = psc.program_structure_id 
             INNER JOIN program p ON p.id = ps.program_id 
-            WHERE semester_id = ? AND pao.professor = ?";
+            WHERE semester_id = ? AND pao.professor_id = ?";
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$semester_id, $professor]);
         
