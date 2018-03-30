@@ -14,7 +14,7 @@ class ProfessorCoursesModel extends BaseModel
     }
     final public function delete($id)
     {
-        $query = "DELETE FROM professor_available_course WHERE id = ?";
+        $query = "DELETE FROM professor_available_course WHERE available_course_id = ?";
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$id]);
     }
@@ -22,7 +22,7 @@ class ProfessorCoursesModel extends BaseModel
     
     final public function list($semester_id,$professor)
     {
-        $query = "SELECT pao.id, p.acronym as program_acronym, p.description as program_description, c.description as course_description, 
+        $query = "SELECT ac.id, p.acronym as program_acronym, p.description as program_description, c.description as course_description, 
             c.credits, s.description as shift_description, psc.semester_number 
             FROM  professor_available_course pao 
             INNER JOIN available_course ac ON ac.id = pao.available_course_id 
