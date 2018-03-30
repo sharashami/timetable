@@ -6,42 +6,78 @@ use PDO;
 
 class CoursesModel extends BaseModel
 {
-    final public function save($nome,$credito)
+    final public function save($shift,$semester_id,$program_structure_course_id)
     {
-        $query = "INSERT INTO disciplina (nome,credito) VALUE (?,?)";
+        $query = "INSERT INTO available_course (shift_id, semester_id,program_structure_course_id) VALUES (?,?,?);";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$nome, $credito]);
-    }
-
-    final public function edit($id, $nome, $credito)
-    {
-        $query = "UPDATE disciplina SET nome = ?, credito = ? WHERE id = ?";
-        $stmt = parent::con()->prepare($query);
-        $stmt->execute([$nome, $credito, $id]);
+        $stmt->execute([$shift,$semester_id,$program_structure_course_id]);
     }
 
     final public function delete($id)
     {
-        $query = "DELETE FROM disciplina WHERE id = ?";
+        $query = "DELETE FROM available_course WHERE id = ?";
         $stmt = parent::con()->prepare($query);
         $stmt->execute([$id]);
     }
 
-    final public function list()
+    final public function list($semester_id)
     {
-        $query = "SELECT * FROM disciplina";
+        $query = "SELECT ac.id, p.description as program_description,p.acronym as program_acronym, c.description as course_description, c.credits, 
+            s.description as shift_description, psc.semester_number 
+            FROM available_course ac 
+            INNER JOIN shift s ON s.id = ac.shift_id
+            INNER JOIN program_structure_courses psc ON psc.id = ac.program_structure_course_id
+            INNER JOIN course c ON c.id = psc.course_id 
+            INNER JOIN program_structure ps ON ps.id = psc.program_structure_id 
+            INNER JOIN program p ON p.id = ps.program_id 
+            WHERE semester_id = ?";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute();
+        $stmt->execute([$semester_id]);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    final public function findByNome($nome)
+    final public function remainingList($semester_id)
     {
-        $query = "SELECT * FROM disciplina a WHERE a.nome = ?";
+        $query = "SELECT ac.id, p.acronym as program_acronym,  p.description as program_description,p.acronym as program_acronym, c.description as course_description, c.credits, 
+        s.description as shift_description, psc.semester_number 
+        FROM available_course ac 
+        INNER JOIN shift s ON s.id = ac.shift_id
+        INNER JOIN program_structure_courses psc ON psc.id = ac.program_structure_course_id
+        INNER JOIN course c ON c.id = psc.course_id 
+        INNER JOIN program_structure ps ON ps.id = psc.program_structure_id 
+        INNER JOIN program p ON p.id = ps.program_id 
+        WHERE ac.id IN (
+                SELECT ac.id FROM available_course  ac  
+                    WHERE NOT EXISTS (
+                                SELECT pao.available_course_id 
+                                FROM professor_available_course pao 
+                                WHERE ac.id = pao.available_course_id 
+                                AND ac.semester_id = ?)
+        );";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$ano]);
+        $stmt->execute([$semester_id]);
         
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    final public function listByProfessor($semester_id,$professor)
+    {
+        $query = "SELECT pao.id, p.acronym as program_acronym,  p.description as program_description, c.description as course_description, 
+            c.credits, s.description as shift_description, psc.semester_number 
+            FROM    
+            INNER JOIN available_course ac ON ac.id = pao.available_course_id 
+            INNER JOIN shift s ON s.id = ac.shift_id
+            INNER JOIN program_structure_courses psc ON psc.id = ac.program_structure_course_id
+            INNER JOIN course c ON c.id = psc.course_id 
+            INNER JOIN program_structure ps ON ps.id = psc.program_structure_id 
+            INNER JOIN program p ON p.id = ps.program_id 
+            WHERE semester_id = ? AND pao.professor = ?";
+        $stmt = parent::con()->prepare($query);
+        $stmt->execute([$semester_id, $professor]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

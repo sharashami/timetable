@@ -12,9 +12,11 @@ class CoursesRest extends BaseRest
         
         parent::add('POST', [
             ['courses', 'save']
+
         ]);
         parent::add('GET', [
-            ['courses', 'list']
+            ['courses/available/:semesterid', 'list'],//all courses
+            ['courses/available/remaining/:semesterid', 'remainingList']//free courses
         ]);
         parent::add('PUT', [
             ['courses/:id', 'edit']
@@ -32,13 +34,19 @@ class CoursesRest extends BaseRest
 
     final public function list()
     {
-        $courses = $this->model->list();
+        $courses = $this->model->list(parent::getParam("semesterid"));
         parent::response($courses, 200);
+    } 
+
+    final public function remainingList()
+    {
+        $courses = $this->model->remainingList(parent::getParam("semesterid"));
+        parent::response($courses);
     } 
 
     final public function edit($req)
     {
-        $this->model->edit(parent::getParam("id"), $req['description']);
+        $this->model->edit(parent::getParam("id"), $req['name']);
         parent::response("", 200);
         
     } 

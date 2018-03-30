@@ -1,0 +1,65 @@
+<div class="row">
+
+    <div class="col">
+        <div class="d-flex flex-row">
+            <div class="input-group search-custom w-50">
+                <input type="text" class="form-control" placeholder="Pesquisar" data-ng-model="search1">
+                <div class="input-group-append">
+                    <span class="input-group-text fas fa-search text-granite"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card card-custom mt-5" id="coursesOffer">
+            <h5 class="card-header text-white">Disciplinas Ofertadas</h5>
+            <div class="card-body px-0">
+                <!-- <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                        data-ng-repeat="item in $ctrl.remainingList | filter: search1">
+                        <div>
+                            <p class="mb-0"><strong>{{item.course_description}}</strong></p> 
+                            <p class="mb-0 text-secondary">{{item.program_description}}</p> 
+                            <small>S{{item.semester_number}} | {{item.shift_description}}</small> 
+                        </div>
+                        <button type="button" class="btn btn-outline-primary fas fa-plus" data-ng-click="$ctrl.addCourse(item)"></button>
+                    </li>
+                    <li data-ng-if="$ctrl.remainingList.length == 0" class="text-secondary">
+                        <i class="fa fa-info-circle"></i>&ensp;NENHUMA DISCIPLINA
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="d-flex flex-row-reverse">
+            <div class="input-group search-custom w-50">
+                <input type="text" class="form-control" placeholder="Pesquisar" data-ng-model="search2">
+                <div class="input-group-append">
+                    <span class="input-group-text fas fa-search text-granite"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card card-custom mt-5" id="myCourses">
+            <h5 class="card-header text-white">Minhas Disciplinas</h5>
+            <div class="card-body px-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        data-ng-repeat="item in $ctrl.myCoursesList | filter: search2">
+                        <div>
+                            <p class="mb-0"><strong>{{item.course_description}}</strong></p> 
+                            <p class="mb-0 text-secondary">{{item.program_description}}</p> 
+                            <small>S{{item.semester_number}} | {{item.shift_description}}</small> 
+                        </div>
+                        <button type="button" class="btn btn-outline-danger fas fa-minus" data-ng-click="$ctrl.removeCourse(item)"></button>
+                    </li>
+                    <li data-ng-if="$ctrl.myCoursesList.length == 0" class="text-secondary">
+                        <i class="fa fa-info-circle"></i>&ensp;NENHUMA DISCIPLINA
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

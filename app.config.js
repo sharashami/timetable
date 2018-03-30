@@ -51,9 +51,7 @@
             .state('root.home', {
                 url: '/home',
                 views: {
-                    'main': {
-                        template: '<h1>asdfsdfsadf</h1>'
-                    }
+                    'main': { component: 'myCourses' }
                 },
                 title: "Home"
             })

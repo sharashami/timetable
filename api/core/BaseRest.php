@@ -24,11 +24,12 @@ abstract class BaseRest
     public function __construct()
     {
         header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE");
         header("Access-Control-Allow-Headers: Origin, X-Request-Width, Content-Type, Accept");
+        header("Access-Control-Max-Age: 86400");
+        header("Access-Control-Allow-Credentials: true");
         // header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
         // header("Access-Control-Expose-Headers: Access-Control-Allow-Origin");
-        // header("Access-Control-Allow-Credentials: true");
         $this->method = $this->getMethod();
         $this->getRequest($this->method);
         $this->getModel();

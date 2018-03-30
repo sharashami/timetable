@@ -6,7 +6,8 @@
             'ui.router',
             'toastr',
             'ngAnimate',
-            'ngStorage'
+            'ngStorage',
+            'dndLists'
         ])
         .constant("API", "http://timetable/api");
 })();

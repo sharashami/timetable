@@ -3,7 +3,7 @@ namespace Api\Rests;
 
 use Core\BaseRest;
 
-class AvailableCoursesRest extends BaseRest
+class CoursesRest extends BaseRest
 {
 
     public function __construct()
@@ -12,11 +12,9 @@ class AvailableCoursesRest extends BaseRest
         
         parent::add('POST', [
             ['courses', 'save']
-
         ]);
         parent::add('GET', [
-            ['courses/available/:semesterid', 'list'],//all courses
-            ['courses/available/remaining/:semesterid', 'remainingList']//free courses
+            ['courses', 'list']
         ]);
         parent::add('PUT', [
             ['courses/:id', 'edit']
@@ -34,19 +32,13 @@ class AvailableCoursesRest extends BaseRest
 
     final public function list()
     {
-        $courses = $this->model->list(parent::getParam("semesterid"));
-        parent::response($courses, 200);
-    } 
-
-    final public function remainingList()
-    {
-        $courses = $this->model->remainingList(parent::getParam("semesterid"));
+        $courses = $this->model->list();
         parent::response($courses, 200);
     } 
 
     final public function edit($req)
     {
-        $this->model->edit(parent::getParam("id"), $req['name']);
+        $this->model->edit(parent::getParam("id"), $req['description']);
         parent::response("", 200);
         
     } 

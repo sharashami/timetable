@@ -11,15 +11,14 @@ class ProfessorCoursesRest extends BaseRest
         parent::__construct();
         
         parent::add('GET', [
-            ['courses/professor/:idprofessor/semester/:idsemester/', 'list']
+            ['professorCourses/professor/:idprofessor/semester/:idsemester', 'list']
         ]);
         parent::add('POST', [
-            ['courses/:idavailablecourse/professor/:idprofessor/', 'save']
+            ['professorCourses/:idavailablecourse/professor/:idprofessor', 'save']
 
         ]);
-        
         parent::add('DELETE', [
-            ['courses/professor/:id', 'delete']
+            ['professorCourses/:idavailablecourse', 'delete']
         ]);
     }
 
@@ -44,7 +43,7 @@ class ProfessorCoursesRest extends BaseRest
 
     final public function delete()
     {
-        $this->model->delete(parent::getParam("id"));
-        parent::response("", 200);
+        $this->model->delete(parent::getParam("idavailablecourse"));
+        parent::response("");
     } 
 }
