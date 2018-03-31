@@ -11,18 +11,21 @@ class CoursesRest extends BaseRest
         parent::__construct();
         
         parent::add('POST', [
-            ['courses', 'save']
+            ['courses', 'save'],
+            ['courses/:idavailablecourse/professor/:idprofessor', 'assignCourseToProfessor']
 
         ]);
         parent::add('GET', [
             ['courses/available/:semesterid', 'list'],//all courses
-            ['courses/available/remaining/:semesterid', 'remainingList']//free courses
+            ['courses/available/remaining/:semesterid', 'remainingList'],//free courses
+            ['courses/professor/:idprofessor/semester/:idsemester', 'listByProfessor']
         ]);
         parent::add('PUT', [
             ['courses/:id', 'edit']
         ]);
         parent::add('DELETE', [
-            ['courses/:id', 'delete']
+            ['courses/:id', 'delete'],
+            ['courses/:idavailablecourse', 'removeAssignmentFromProfessor']
         ]);
     }
 
@@ -55,5 +58,21 @@ class CoursesRest extends BaseRest
     {
         $this->model->delete(parent::getParam("id"));
         parent::response("", 200);
+    } 
+    
+    final public function listByProfessor()
+    {
+        $courses = $this->model->listByProfessor(parent::getParam("idsemester"),parent::getParam("idprofessor"));
+        parent::response($courses);
+    } 
+    final public function assignCourseToProfessor()
+    {
+        $this->model->assignCourseToProfessor(parent::getParam("idavailablecourse"),parent::getParam("idprofessor"));
+        parent::response("");
+    } 
+    final public function removeAssignmentFromProfessor()
+    {
+        $this->model->removeAssignmentFromProfessor(parent::getParam("idavailablecourse"));
+        parent::response("");
     } 
 }

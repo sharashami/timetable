@@ -11,8 +11,8 @@
         var service = {
             remainingList: remainingList,
             listByProfessor: listByProfessor,
-            addCourseInProfessor: addCourseInProfessor,
-            removeCourseInProfessor: removeCourseInProfessor
+            assignCourseToProfessor: assignCourseToProfessor,
+            removeAssignmentFromProfessor: removeAssignmentFromProfessor
         };
 
         return service;
@@ -24,15 +24,15 @@
         }
 
         function listByProfessor(idprofessor, semesterid) {
-            return $http.get(API + '/professorCourses/professor/' + idprofessor + '/semester/' + semesterid);
+            return $http.get(API + '/courses/professor/' + idprofessor + '/semester/' + semesterid);
         }
 
-        function addCourseInProfessor(course, idprofessor) {
-            return $http.post(API + '/professorCourses/' + course.id + '/professor/' + idprofessor);
+        function assignCourseToProfessor(course, idprofessor) {
+            return $http.post(API + '/courses/' + course.id + '/professor/' + idprofessor);
         }
 
-        function removeCourseInProfessor(course) {
-            return $http.delete(API + '/professorCourses/' + course.id);
+        function removeAssignmentFromProfessor(course) {
+            return $http.delete(API + '/courses/' + course.id);
         }
     }
 })();

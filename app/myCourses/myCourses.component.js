@@ -31,7 +31,7 @@
 
         function addCourse(course) {
             let index = $ctrl.remainingList.indexOf(course);
-            allocationService.addCourseInProfessor(course, 1)
+            allocationService.assignCourseToProfessor(course, 1)
                 .then(resp => {
                     $ctrl.myCoursesList.push($ctrl.remainingList.splice(index, 1)[0]);
                     getRemainingList();
@@ -39,7 +39,7 @@
         }
 
         function removeCourse(course) {
-            allocationService.removeCourseInProfessor(course)
+            allocationService.removeAssignmentFromProfessor(course)
                 .then(resp => {
                     $ctrl.myCoursesList.splice($ctrl.myCoursesList.indexOf(course), 1);
                     getRemainingList();
