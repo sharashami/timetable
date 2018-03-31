@@ -185,8 +185,8 @@ ul[dnd-list] li.selected {
     /* transition: 0.5s; */
 }
 
-#coursesOffer ul,
+/* #coursesOffer ul,
 #myCourses ul {
     overflow-y: auto;
     max-height: 60vh;
-}
+} */
