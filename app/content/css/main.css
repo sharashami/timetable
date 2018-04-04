@@ -125,68 +125,54 @@ code {
 }
 
 
-/* DND */
-
-
-/**
- * The dnd-list should always have a min-height,
- * otherwise you can't drop to it once it's empty
- */
-
-ul[dnd-list] {
-    min-height: 42px;
-    padding-left: 0px;
-}
-
-
-/**
- * The dndDraggingSource class will be applied to
- * the source element of a drag operation. It makes
- * sense to hide it to give the user the feeling
- * that he's actually moving it.
- */
-
-ul[dnd-list] .dndDraggingSource {
-    display: none;
-}
-
-
-/**
- * An element with .dndPlaceholder class will be
- * added to the dnd-list while the user is dragging
- * over it.
- */
-
-ul[dnd-list] .dndPlaceholder {
-    background-color: #9eb9d8;
-    display: block;
-    min-height: 42px;
-}
-
-ul[dnd-list] li {
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    /* border-top-right-radius: 4px;
-    border-top-left-radius: 4px; */
-    display: block;
-    padding: 10px 15px;
-    margin-bottom: -1px;
-}
-
-
-/**
- * Show selected elements in green
- */
-
-ul[dnd-list] li.selected {
-    background-color: #bbdefb;
-    color: #3F729B;
-    /* transition: 0.5s; */
-}
-
 /* #coursesOffer ul,
 #myCourses ul {
     overflow-y: auto;
     max-height: 60vh;
 } */
+
+.accordion-custom>li {
+    border-bottom: 0 !important;
+    border-top: 0 !important;
+}
+
+.accordion-custom>li[aria-expanded="true"] {
+    /* border-left: 3px solid #207ce5 !important;
+    background-color: #EEEEEE; */
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.accordion-custom>li[aria-expanded="true"]>span.fas {
+    transition: 0.2s ease;
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.accordion-custom>li[aria-expanded="false"]>span.fas {
+    transition: 0.2s ease;
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+}
+
+.accordion-custom>li {
+    border-left: 3px solid #207ce5 !important;
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    background-color: #EEEEEE;
+}
+
+.accordion-custom>li:hover {
+    font-weight: bold;
+}
+
+.accordion-custom>li+div>a {
+    border-left: 2px solid #AAAAAA;
+}

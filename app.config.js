@@ -55,12 +55,10 @@
                 },
                 title: "Home"
             })
-            .state('root.404', {
-                url: '/404',
+            .state('root.allocation', {
+                url: '/allocation',
                 views: {
-                    'main': {
-                        template: '<h1 class="text-center">Página não encontrada!</h1>'
-                    }
+                    'main': { component: 'myAllocations' }
                 }
             })
             // ACESS

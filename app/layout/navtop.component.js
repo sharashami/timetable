@@ -24,7 +24,7 @@
         $ctrl.$onInit = function() {
             $ctrl.links = [
                 { href: 'root.home', label: 'Minhas Disciplinas' },
-                { href: 'root.404', label: 'Menu 2' },
+                { href: 'root.allocation', label: 'Minhas Alocações' },
             ];
         };
         $ctrl.$onChanges = function(changesObj) {};
