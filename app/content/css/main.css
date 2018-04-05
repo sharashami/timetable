@@ -2,6 +2,10 @@
     color: #AAAAAA;
 }
 
+.bg-blue {
+    background-color: #207ce5;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -176,3 +180,4 @@ code {
 .accordion-custom>li+div>a {
     border-left: 2px solid #AAAAAA;
 }
+
