@@ -12,15 +12,27 @@
             },
         });
 
-    controller.$inject = [];
-    function controller() {
+    controller.$inject = ['allocationService'];
+
+    function controller(allocationService) {
         var $ctrl = this;
-        
+
 
         ////////////////
 
-        $ctrl.$onInit = function() { };
-        $ctrl.$onChanges = function(changesObj) { };
-        $ctrl.$onDestroy = function() { };
+        $ctrl.$onInit = function() {
+            getListByProfessor();
+        };
+
+        $ctrl.$onChanges = function(changesObj) {};
+        $ctrl.$onDestroy = function() {};
+
+        function getListByProfessor() {
+            allocationService.listByProfessor(1, 1)
+                .then(resp => {
+                    $ctrl.myCoursesList = resp.data;
+                    $ctrl.programs = [...(new Set($ctrl.myCoursesList.map(e => e.program_description)))];
+                });
+        }
     }
 })();

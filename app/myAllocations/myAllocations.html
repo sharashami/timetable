@@ -17,75 +17,86 @@
 
                     </nav> -->
                     <ul class="list-group list-group-flush accordion-custom">
-                        <li class="list-group-item list-group-item-action pointer d-flex align-items-center justify-content-between" data-toggle="collapse"
-                            aria-expanded="true" data-target="#menu1">
-                            <span>Ciência da Computação</span>
-                            <span class="fas fa-caret-right"></span>
-                        </li>
-                        <div id="menu1" class="collapse show" aria-labelledby="headingOne">
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                        </div>
-                        <li class="mt-2 list-group-item list-group-item-action pointer d-flex align-items-center justify-content-between" data-toggle="collapse"
-                            aria-expanded="true" data-target="#menu2">
-                            <span>Ciência da Computação</span>
-                            <span class="fas fa-caret-right"></span>
-                        </li>
-                        <div id="menu2" class="collapse show" aria-labelledby="headingOne">
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                        </div>
-                        <li class="mt-2 list-group-item list-group-item-action pointer d-flex align-items-center justify-content-between" data-toggle="collapse"
-                            aria-expanded="true" data-target="#menu3">
-                            <span>Ciência da Computação</span>
-                            <span class="fas fa-caret-right"></span>
-                        </li>
-                        <div id="menu3" class="collapse show" aria-labelledby="headingOne">
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                            <a class="ml-4 nav-link active" href="#">Active</a>
-                            <a class="ml-4 nav-link active" href="#">Active</a>
+                        <div data-ng-repeat="program in $ctrl.programs" data-ng-class="{'mt-2': $index > 0}">
+                            <li class="list-group-item list-group-item-action pointer d-flex align-items-center justify-content-between" 
+                                data-toggle="collapse" 
+                                aria-expanded="true" 
+                                data-target="#{{program}}">
+                                <span>{{program}}</span>
+                                <span class="fas fa-caret-right"></span>
+                            </li>
+                            <div id="{{program}}" class="collapse show" aria-labelledby="headingOne">
+                                <a  data-ng-repeat="course in $ctrl.myCoursesList" 
+                                    class="ml-4 nav-link"  
+                                    href
+                                    data-ng-if="course.program_description == program">
+                                    {{course.course_description}}
+                                </a>
+                            </div>
                         </div>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-md-9" id="teste">
-            <div class="card card-custom mt-4">
+        <div class="col-md-9">
+            <div class="card card-custom mt-4" id="allocation">
 
                 <h5 class="card-header text-white d-flex justify-content-between">
                     Lotações
                     <button type="button" class="btn btn-outline-light btn-sm fas fa-sync"></button>
                 </h5>
 
-                <div class="card-body">
-                    <table class="table">
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col" colspan="2">HORÁRIO</th>
+                                <!-- <th scope="col">#</th> -->
+                                <th scope="col">SEGUNDA</th>
+                                <th scope="col">TERÇA</th>
+                                <th scope="col">QUARTA</th>
+                                <th scope="col">QUINTA</th>
+                                <th scope="col">SEXTA</th>
+                                <th scope="col">SÁBADO</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
+                                <td scope="row" rowspan="2" class="align-middle w-1">MANHÃ</td>
+                                <th scope="row">A</th>
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
                             </tr>
                             <tr>
-                                <th scope="row">2</th>
+                                <th scope="row">B</th>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>@fat</td>
+                                <td>@fat</td>
+                                <td>@fat</td>
+                                <td>@fat</td>
                             </tr>
                             <tr>
-                                <th scope="row">3</th>
+                                <td scope="row" rowspan="2" class="align-middle w-1">TARDE</td>
+                                <th scope="row">A</th>
                                 <td>Larry</td>
                                 <td>the Bird</td>
+                                <td>@twitter</td>
+                                <td>@twitter</td>
+                                <td>@twitter</td>
+                                <td>@twitter</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">B</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                                <td>@twitter</td>
+                                <td>@twitter</td>
                                 <td>@twitter</td>
                             </tr>
                         </tbody>
