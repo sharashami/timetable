@@ -14,18 +14,34 @@ class ScheduleRest extends BaseRest
             ['schedule/shifts/', 'listShifts'],
             ['schedule/periods/', 'listWeekdays'],
             ['schedule/weekdays/', 'listPeriods'],
+            ['schedule/semester/:semester_id/semester_number/:semester_number/program/:program_id/shift/:shift_id/', 'listByProgramSemesterShift'],
+            ['schedule/semester/:semester_id/professor/:professor_id/', 'listByProfessor']
         ]);
         parent::add('PUT', [
             ['courses/professor/:id/laboratory/:idlaboratory/', 'setLaboratory']
         ]);
         
     }
+ 
 
     final public function setLaboratory()
     {
         $this->model->setLaboratory(parent::getParam("id"),parent::getParam("idlaboratory"));
         parent::response("", 200);
-    } 
+    }
+
+    final public function listByProgramSemesterShift()
+    {
+        $r = $this->model->listByProgramSemesterShift(parent::getParam("semester_id"),parent::getParam("semester_number"),parent::getParam("program_id"),parent::getParam("shift_id"));
+        parent::response($r, 200);
+    }
+
+    final public function listByProfessor()
+    {
+        $r = $this->model->listByProfessor(parent::getParam("semester_id"),parent::getParam("professor_id"));
+        parent::response($r, 200);
+    }
+
     final public function listShifts()
     {
         $r = $this->model->listShifts();
