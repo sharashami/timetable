@@ -24,7 +24,7 @@
         ////////////////
 
         $scope.$watch(() => $ctrl.main.semesterActive, value => {
-            console.log(value);
+            // console.log(value);
             if (value) {
                 $ctrl.semesterActive = value;
                 getListByProfessor();

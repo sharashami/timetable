@@ -29,8 +29,12 @@
                                 <a  data-ng-repeat="course in $ctrl.myCoursesList" 
                                     class="ml-4 nav-link"  
                                     href
-                                    data-ng-if="course.program_description == program">
-                                    {{course.course_description}}
+                                    data-ng-if="course.program_description == program"
+                                    data-ng-click="$ctrl.courseActive(course)">
+                                    {{course.course_description}}<br>
+                                    <small class="mt-0 text-secondary">
+                                        {{course.semester_number}}º Semestre | {{course.shift_description}}
+                                    </small>
                                 </a>
                             </div>
                         </div>

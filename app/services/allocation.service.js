@@ -14,13 +14,14 @@
             listSemester: listSemester,
             assignCourseToProfessor: assignCourseToProfessor,
             removeAssignmentFromProfessor: removeAssignmentFromProfessor,
+            listByProgramSemester: listByProgramSemester,
         };
 
         return service;
 
         ////////////////
 
-        function listSemester () {
+        function listSemester() {
             return $http.get(API + '/semester');
         }
 
@@ -38,6 +39,10 @@
 
         function removeAssignmentFromProfessor(course) {
             return $http.delete(API + '/courses/' + course.id);
+        }
+
+        function listByProgramSemester(semesterid, course) {
+            return $http.get(API + '/schedule/semester/' + semesterid + '/semester_number/' + course.semester_number + '/program/' + course.program_id);
         }
     }
 })();

@@ -11,14 +11,18 @@ class ScheduleRest extends BaseRest
         parent::__construct();
         
         parent::add('GET', [
-            ['schedule/shifts/', 'listShifts'],
-            ['schedule/periods/', 'listWeekdays'],
-            ['schedule/weekdays/', 'listPeriods'],
-            ['schedule/semester/:semester_id/semester_number/:semester_number/program/:program_id/shift/:shift_id/', 'listByProgramSemesterShift'],
+            ['schedule/shifts', 'listShifts'],
+            ['schedule/periods', 'listWeekdays'],
+            ['schedule/weekdays', 'listPeriods'],
+            [
+                'schedule/semester/:semester_id/semester_number/:semester_number/program/:program_id', 
+                'listByProgramSemester'
+                
+            ],
             ['schedule/semester/:semester_id/professor/:professor_id/', 'listByProfessor']
         ]);
         parent::add('PUT', [
-            ['courses/professor/:id/laboratory/:idlaboratory/', 'setLaboratory']
+            ['courses/professor/:id/laboratory/:idlaboratory', 'setLaboratory']
         ]);
         
     }
@@ -30,9 +34,14 @@ class ScheduleRest extends BaseRest
         parent::response("", 200);
     }
 
-    final public function listByProgramSemesterShift()
+    final public function listByProgramSemester()
     {
-        $r = $this->model->listByProgramSemesterShift(parent::getParam("semester_id"),parent::getParam("semester_number"),parent::getParam("program_id"),parent::getParam("shift_id"));
+        $r = $this->model->listByProgramSemester(
+            parent::getParam("semester_id"),
+            parent::getParam("semester_number"),
+            parent::getParam("program_id")
+        );
+        
         parent::response($r, 200);
     }
 

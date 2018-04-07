@@ -64,7 +64,7 @@ class CoursesModel extends BaseModel
     final public function listByProfessor($semester_id,$professor_id)
     {
         $query = "SELECT ac.id, p.acronym as program_acronym, 
-            p.description as program_description, c.description as course_description, 
+            p.description as program_description, p.id as program_id, c.description as course_description, 
             c.credits, s.description as shift_description, psc.semester_number 
             FROM  professor_available_course pao 
             INNER JOIN available_course ac ON ac.id = pao.available_course_id 

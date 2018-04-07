@@ -32,9 +32,9 @@ class ScheduleModel extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    final public function listByProgramSemesterShift($semester_id,$semester_number,$program_id,$shift_id)
+    final public function listByProgramSemester($semester_id,$semester_number,$program_id)
     {
-        $query = "SELECT sched.id, wday.id as day_id, wday.description as day, 
+        $query = "SELECT sched.id, pao.professor_id, wday.id as day_id, wday.description as day, 
                     s.id as shift_id ,s.description as shift_description, 
                     per.id as period_id ,per.description as period_description, psc.semester_number,
                     p.id as program_id, p.description as program_description,p.acronym as program_acronym, c.description as course_description, c.credits
@@ -49,14 +49,14 @@ class ScheduleModel extends BaseModel
                     INNER JOIN course c ON c.id = psc.course_id 
                     INNER JOIN program_structure ps ON ps.id = psc.program_structure_id 
                     INNER JOIN program p ON p.id = ps.program_id 
-                    WHERE sched.semester_id = ? and psc.semester_number = ? and p.id = ? and s.id = ?;";
+                    WHERE sched.semester_id = ? and psc.semester_number = ? and p.id = ?";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$semester_id,$semester_number,$program_id,$shift_id]);
+        $stmt->execute([$semester_id, $semester_number,$program_id]);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    final public function listByProfessor($semester_id,$professor_id)
+    final public function listByProfessor($semester_id, $professor_id)
     {
         $query = "SELECT sched.id, wday.id as day_id, wday.description as day, 
                     s.id as shift_id ,s.description as shift_description, 
@@ -75,7 +75,7 @@ class ScheduleModel extends BaseModel
                     INNER JOIN program p ON p.id = ps.program_id 
                     WHERE sched.semester_id = ? and  pao.professor_id = ?";
         $stmt = parent::con()->prepare($query);
-        $stmt->execute([$semester_id,$professor_id]);
+        $stmt->execute([$semester_id, $professor_id]);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

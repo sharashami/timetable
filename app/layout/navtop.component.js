@@ -31,9 +31,8 @@
 
             allocationService.listSemester()
                 .then(resp => {
+                    // console.log(resp.data);
                     $ctrl.semesters = resp.data;
-                    ////
-                    $ctrl.semesters.push({ id: "2", description: "2019.1", enabled: "0" });
                     $ctrl.setSemester($ctrl.semesters.find(e => !!e.enabled));
                 });
         };

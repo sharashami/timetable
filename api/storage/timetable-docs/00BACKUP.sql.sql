@@ -18,6 +18,8 @@
 --
 -- Table structure for table `available_course`
 --
+CREATE SCHEMA `timetable` DEFAULT CHARACTER SET utf8 ;
+USE `timetable`;
 
 DROP TABLE IF EXISTS `available_course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
