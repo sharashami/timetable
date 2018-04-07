@@ -195,7 +195,7 @@ CREATE TABLE `professor_available_course` (
   KEY `professor_available_course_fk1` (`available_course_id`),
   CONSTRAINT `professor_available_course_fk0` FOREIGN KEY (`professor_id`) REFERENCES `professor` (`id`),
   CONSTRAINT `professor_available_course_fk1` FOREIGN KEY (`available_course_id`) REFERENCES `available_course` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +204,7 @@ CREATE TABLE `professor_available_course` (
 
 LOCK TABLES `professor_available_course` WRITE;
 /*!40000 ALTER TABLE `professor_available_course` DISABLE KEYS */;
-INSERT INTO `professor_available_course` VALUES (1,1,1);
+INSERT INTO `professor_available_course` VALUES (3,1,18),(4,1,19),(5,1,21);
 /*!40000 ALTER TABLE `professor_available_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,7 @@ CREATE TABLE `program` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `description` (`description`),
   KEY `program_fk0` (`field_id`),
-  CONSTRAINT `program_fk0` FOREIGN KEY (`field_id`) REFERENCES `field` (`id`) 
+  CONSTRAINT `program_fk0` FOREIGN KEY (`field_id`) REFERENCES `field` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -354,7 +354,7 @@ CREATE TABLE `schedule` (
   CONSTRAINT `schedule_fk3` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`),
   CONSTRAINT `schedule_fk4` FOREIGN KEY (`period_id`) REFERENCES `period` (`id`),
   CONSTRAINT `schedule_fk5` FOREIGN KEY (`laboratory_id`) REFERENCES `laboratory` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,6 +363,7 @@ CREATE TABLE `schedule` (
 
 LOCK TABLES `schedule` WRITE;
 /*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
+INSERT INTO `schedule` VALUES (1,1,3,1,1,1,NULL),(2,1,3,3,1,1,NULL),(3,1,5,2,2,1,NULL),(4,1,5,4,2,1,NULL);
 /*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,4 +510,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-28 18:42:05
+-- Dump completed on 2018-04-06 21:51:25
