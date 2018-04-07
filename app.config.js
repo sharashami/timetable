@@ -43,7 +43,7 @@
                 abstract: true,
                 views: {
                     '@': {
-                        component: 'main'
+                        component: 'mainC'
                     }
                 },
                 data: { css: ['app/content/css/main.css'] }

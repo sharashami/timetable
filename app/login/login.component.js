@@ -22,6 +22,7 @@
                 .then(resp => {
                     if (resp.data.logged === true) {
                         user.loggedIn(!!$ctrl.remember);
+                        user.setId(resp.data.id);
                         user.setToken(resp.data.token);
                         user.setName(resp.data.name);
                         user.setProfile(resp.data.profile);

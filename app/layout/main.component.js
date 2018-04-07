@@ -3,7 +3,7 @@
 
     angular
         .module('app')
-        .component('main', {
+        .component('mainC', {
             templateUrl: 'app/layout/main.html',
             controller: controller,
             controllerAs: '$ctrl',
@@ -12,17 +12,21 @@
             },
         });
 
-    controller.$inject = ['$state'];
+    controller.$inject = ['$state', '$scope'];
 
-    function controller($state) {
+    function controller($state, $scope) {
         var $ctrl = this;
-
+        $ctrl.semesterActive;
 
         ////////////////
 
-        $ctrl.$onInit = function() {
+        // $scope.$watch(function() {
+        //     return $ctrl.semesterActive;
+        // }, function(value) {
+        //     console.log(value);
+        // });
 
-        };
+        $ctrl.$onInit = function() {};
         $ctrl.$onChanges = function(changesObj) {};
         $ctrl.$onDestroy = function() {};
     }

@@ -26,6 +26,7 @@ class AuthenticateRest extends BaseRest
             
             $this->response([
                 "logged" => true,
+                "id" => $dados["id"],
                 "name" => $dados["name"],
                 "profile" => $dados["profile"],
                 "token" => $token

@@ -11,13 +11,18 @@
         var service = {
             remainingList: remainingList,
             listByProfessor: listByProfessor,
+            listSemester: listSemester,
             assignCourseToProfessor: assignCourseToProfessor,
-            removeAssignmentFromProfessor: removeAssignmentFromProfessor
+            removeAssignmentFromProfessor: removeAssignmentFromProfessor,
         };
 
         return service;
 
         ////////////////
+
+        function listSemester () {
+            return $http.get(API + '/semester');
+        }
 
         function remainingList(semesterid) {
             return $http.get(API + '/courses/available/remaining/' + semesterid);

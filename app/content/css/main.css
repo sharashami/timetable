@@ -63,7 +63,7 @@ body {
 } */
 
 main {
-    padding: 60px 0 0;
+    padding: 120px 0 0;
     /* padding: 60px 15px 0; */
 }
 
@@ -134,6 +134,11 @@ code {
     overflow-y: auto;
     max-height: 60vh;
 } */
+
+#coursesOffer ul>li,
+#myCourses ul>li {
+    display: -webkit-box !important;
+}
 
 .accordion-custom>div>li {
     border-bottom: 0 !important;

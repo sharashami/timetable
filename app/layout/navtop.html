@@ -12,6 +12,20 @@
                 </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0">
+
+                <div class="dropdown mr-5">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{$ctrl.semester.description}}
+                    </button>
+                    <div class="dropdown-menu mt-3" aria-labelledby="dropdownMenuButton">
+                        <a  data-ng-repeat="s in $ctrl.semesters" 
+                            data-ng-click="$ctrl.setSemester(s)"
+                            class="dropdown-item" 
+                            href="#">{{s.description}}
+                        </a>
+                    </div>
+                </div>
+
                 <img src="app/content/img/teacher (2).png" alt="" width="40" height="40" class="rounded-circle mr-3">
                 <span class="text-white mr-3">{{$ctrl.user.getName()}}</span>
                 <a id="logout" class="my-2 my-sm-0 mr-4 text-white fas fa-sign-out-alt fa-2x pointer" data-ng-click="$ctrl.logout()"></a>
