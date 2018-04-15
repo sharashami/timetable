@@ -19,14 +19,14 @@
         var $ctrl = this;
         $ctrl.addCourse = addCourse;
         $ctrl.removeCourse = removeCourse;
-        $ctrl.semesterActive;
+        $ctrl.activeSemester;
 
         ////////////////
 
-        $scope.$watch(() => $ctrl.main.semesterActive, value => {
+        $scope.$watch(() => $ctrl.main.activeSemester, value => {
             // console.log(value);
             if (value) {
-                $ctrl.semesterActive = value;
+                $ctrl.activeSemester = value;
                 getListByProfessor();
                 getRemainingList();
             }
@@ -55,12 +55,12 @@
         }
 
         function getRemainingList() {
-            allocationService.remainingList($ctrl.semesterActive.id)
+            allocationService.remainingList($ctrl.activeSemester.id)
                 .then(resp => $ctrl.remainingList = resp.data);
         }
 
         function getListByProfessor() {
-            allocationService.listByProfessor(user.getId(), $ctrl.semesterActive.id)
+            allocationService.listByProfessor(user.getId(), $ctrl.activeSemester.id)
                 .then(resp => $ctrl.myCoursesList = resp.data);
         }
     }

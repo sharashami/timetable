@@ -147,9 +147,9 @@ abstract class BaseRest
             case "PUT":
                 parse_str(file_get_contents("php://input"), $this->request);
                 break;
-            default:
-                $this->response('', 405);
-                break;
+            // default:
+            //     $this->response('', 405);
+            //     break;
         }
     }
 

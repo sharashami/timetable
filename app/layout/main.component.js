@@ -16,12 +16,12 @@
 
     function controller($state, $scope) {
         var $ctrl = this;
-        $ctrl.semesterActive;
+        $ctrl.activeSemester;
 
         ////////////////
 
         // $scope.$watch(function() {
-        //     return $ctrl.semesterActive;
+        //     return $ctrl.activeSemester;
         // }, function(value) {
         //     console.log(value);
         // });

@@ -47,8 +47,8 @@
 
         function setSemester(semester) {
             $ctrl.semester = semester;
-            // $ctrl.semesterActive = semester;
-            // $rootScope.semesterActive = semester;
+            // $ctrl.activeSemester = semester;
+            // $rootScope.activeSemester = semester;
         }
     }
 })();

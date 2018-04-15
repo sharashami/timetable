@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -12,9 +12,10 @@
             remainingList: remainingList,
             listByProfessor: listByProfessor,
             listSemester: listSemester,
+            listByProgramSemester: listByProgramSemester,
+            listScheduleByProfessor: listScheduleByProfessor,
             assignCourseToProfessor: assignCourseToProfessor,
             removeAssignmentFromProfessor: removeAssignmentFromProfessor,
-            listByProgramSemester: listByProgramSemester,
         };
 
         return service;
@@ -29,12 +30,12 @@
             return $http.get(API + '/courses/available/remaining/' + semesterid);
         }
 
-        function listByProfessor(idprofessor, semesterid) {
-            return $http.get(API + '/courses/professor/' + idprofessor + '/semester/' + semesterid);
+        function listByProfessor(professorid, semesterid) {
+            return $http.get(API + '/courses/professor/' + professorid + '/semester/' + semesterid);
         }
 
-        function assignCourseToProfessor(course, idprofessor) {
-            return $http.post(API + '/courses/' + course.id + '/professor/' + idprofessor);
+        function assignCourseToProfessor(course, professorid) {
+            return $http.post(API + '/courses/' + course.id + '/professor/' + professorid);
         }
 
         function removeAssignmentFromProfessor(course) {
@@ -43,6 +44,10 @@
 
         function listByProgramSemester(semesterid, course) {
             return $http.get(API + '/schedule/semester/' + semesterid + '/semester_number/' + course.semester_number + '/program/' + course.program_id);
+        }
+
+        function listScheduleByProfessor(semesterid, professorid) {
+            return $http.get(API + '/schedule/semester/' + semesterid + '/professor/' + professorid);
         }
     }
 })();
